@@ -1,0 +1,105 @@
+\documentclass[a4paper]{article}
+
+\usepackage{fullpage} % Package to use full page
+\usepackage{parskip} % Package to tweak paragraph skipping
+\usepackage{tikz} % Package for drawing
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{amssymb}
+
+\title{COMP 339 Assignment 2}
+\author{Ling Tan}
+\date{2018/09/27}
+
+\begin{document}
+
+\maketitle
+
+\section{Exercises 8.1 (p. 396)}
+\subsection{6: Integer solutions to $x_1+x_2+x_3+x_4=19$}
+\begin{itemize}
+    \item $0\leq x_i$ for all $1\leq i\leq 4$\\
+    $$|S| = N =S_0=\binom{19+4-1}{19}$$
+    \item $0\leq x_i < 8$ for all $1\leq i\leq 4$\\
+    
+    \item $0\leq x_1 \leq 5, 0\leq x_2 \leq 6, 3\leq x_3 \leq 7, 3\leq x_4 \leq 8$
+\end{itemize}
+\subsection{10: $x_1+x_2+\dots+x_{12}=200,10\leq x_i\leq25$}
+\subsection{20}
+
+\section{Exercises 8.2 (p. 401)}
+\subsection{2}
+\subsection{6}
+   
+\section{Exercises 9.1 (p. 417) }
+\subsection{2}
+    
+\section{Exercises 9.2 (p. 431) }
+\subsection{20}
+\subsection{30}
+
+\section{Exercises 9.3 (p. 435)  }
+\subsection{4}
+\subsection{6}
+
+\section{Exercises 9.4 (p. 439)  }
+\subsection{2}
+\subsection{6}
+
+\section{Exercises 10.4 (p. 487) }
+\subsection{1}
+\subsection{3}
+
+\section{Prove that if $n$ and $k$ are integers with $1\leq k \leq n$ then}
+$$
+k\cdot \binom{n}{k}=n\cdot \binom{n-1}{k-1}
+$$
+
+\subsection{By using a combinatorial proof.}
+\begin{itemize}
+    \item $k\cdot \binom{n}{k}\equiv$ number of the ways that 
+        \begin{itemize}
+            \item choose $k$ students from $n$ to form a committee: $\binom{n}{k}$
+            \item then choose $1$ student from this committee to be a chairman (chairwoman): $\binom{k}{1}=k$
+            \item As a result, we have formed a committee of $k$ students with $1$ chairman (chairwoman).
+        \end{itemize}
+    \item $n\cdot \binom{n-1}{k-1}\equiv$ number of the ways that 
+        \begin{itemize}
+            \item choose $1$ student from $n$ to be a chairman (chairwoman) of a committee: $\binom{n}{1}=n$
+            \item then choose $k-1$ students from the rest $n-1$ students: $\binom{n-1}{k-1}$
+            \item As a result, we have formed a committee of $k$ students with $1$ chairman (chairwoman).
+        \end{itemize}
+\end{itemize}
+
+\subsection{By using an algebraic proof.}
+\begin{align*}
+    k\cdot \binom{n}{k} & = k\cdot \frac{n!}{k!(n-k)!}\\
+    & = \frac{k}{k!}\cdot \frac{n!}{(n-k)!}\\
+    & = n \cdot \frac{1}{(k-1)!}\cdot \frac{(n-1)!}{(n-k)!}\\
+    & = n \cdot \frac{(n-1)!}{(k-1)!(n-k)!}\\
+    & = n \cdot \frac{(n-1)!}{(k-1)!\bigl((n-1)-(k-1)\bigr)!}\\
+    & = n\cdot \binom{n-1}{k-1}\\
+\end{align*}
+
+\section{Give a combinatorial proof that}
+$$
+\sum_{k=1}^n k\cdot \binom{n}{k} = n \cdot 2^{n-1}
+$$
+\begin{itemize}
+    \item $\sum_{k=1}^n k\cdot \binom{n}{k}\equiv$ number of the ways that 
+        \begin{itemize}
+            \item choose any number of students ($\geq1$) to form a committee: $\binom{n}{k}, k=1,2,\dots,n$
+            \item then choose $1$ student from that committee to be a chairman (chairwoman): $\binom{k}{1}=k, k=1,2,\dots,n$
+            \item for every possible size of committee, we have $k\cdot\binom{n}{k}$ ways, where $k=1,2,\dots,n$
+            \item As a result, we have formed a committee of any number of students with $1$ chairman (chairwoman).
+        \end{itemize}
+    \item $n \cdot 2^{n-1}\equiv$ number of the ways that 
+        \begin{itemize}
+            \item choose $1$ student from $n$ to be a chairman (chairwoman) of a committee: $\binom{n}{1}=n$
+            \item then choose the rest members of that committee. Every student can either be chosen or not be chosen: $2^{n-1}$
+            \item As a result, we have formed a committee of any possible size with $1$ chairman (chairwoman).
+        \end{itemize}
+\end{itemize}
+
+\end{document}
+

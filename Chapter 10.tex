@@ -1,0 +1,40 @@
+\documentclass[a4paper]{article}
+
+\usepackage{fullpage} % Package to use full page
+\usepackage{parskip} % Package to tweak paragraph skipping
+\usepackage{tikz} % Package for drawing
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{amssymb}
+
+\usepackage{enumitem}
+
+\title{Chapter 10 Recurrence Relations}
+\author{Ling Tan}
+\date{2018/09}
+
+\begin{document}
+
+\maketitle
+
+\section*{10.2 The Second-Order Linear Homogeneous Recurrence Relation with Constant Coefficients}
+Let $k\in\mathbb{Z}^+$ and $C_0\neq0,C_1,C_2, \ldots, C_k\neq 0$ be real numbers. If $a_n$, for $n\geq0$, is a discrete function, then
+$$C_0a_n+C_1a_{n-1}+C_2a_{n-2}+\cdots+C_ka_{n-k}=f(n),\quad n\geq k,$$
+is a linear recurrence relation (with constant coefficients) of order $k$.\\
+When $f(0)=0$ for all $n\geq0$, the relation is called homogeneous; otherwise, it is called nonhomogeneous.\\
+\color{red}e.g.: \color{black} When $k=1, C_0a_n+C_1a_{n-1}=g(n)\Rightarrow a_n=-\frac{C_1}{C_0}a_{n-1}+\frac{g(n)}{C_0}$.\\
+If denote $C=-\frac{C_1}{C_0}$ and $h(n)=\frac{g(n)}{C_0}$,\\
+\begin{align}
+    a_n&=Ca_{n-1}+h(n)\\
+    \Rightarrow a_{n-1}&=Ca_{n-2}+h(n-1)\\
+    \Rightarrow a_{n-2}&=Ca_{n-3}+h(n-2)\\
+    &\cdots\\
+    \Rightarrow a_{2}&=Ca_{1}+h(2)\\
+    \Rightarrow a_{1}&=Ca_{0}+h(1)
+\end{align}
+If $(2)\cdot C, (3)\cdot C^2,\cdots, (5)\cdot C^{n-2}, (6)\cdot C^{n-1}$ and add them up, then we have
+$$a_n=C^na_0+C^{n-1}h(1)+C^{n-2}h(2)+\cdots + Ch(n-1)+h(n)=C^na_0+\sum_{i=0}^{n-1}{C^ih(n-i)}$$
+
+\section*{10.4 The Method of Generating Functions}
+
+\end{document}
