@@ -6,6 +6,7 @@
 \usepackage{amsmath}
 \usepackage{hyperref}
 \usepackage{amssymb}
+\usepackage{enumitem}
 
 \title{COMP 339 Assignment 2}
 \author{Ling Tan}
@@ -19,8 +20,9 @@
 \subsection{6: Integer solutions to $x_1+x_2+x_3+x_4=19$}
 \begin{itemize}
     \item $0\leq x_i$ for all $1\leq i\leq 4$\\
-    $$|S| = N =S_0=\binom{19+4-1}{19}$$
+    $$|S| = N =S_0=\binom{19+4-1}{19}=\binom{22}{19}$$
     \item $0\leq x_i < 8$ for all $1\leq i\leq 4$\\
+    $$\text{Condition }c_i\text{ is }x_i>=8$$
     
     \item $0\leq x_1 \leq 5, 0\leq x_2 \leq 6, 3\leq x_3 \leq 7, 3\leq x_4 \leq 8$
 \end{itemize}
@@ -30,24 +32,71 @@
 \section{Exercises 8.2 (p. 401)}
 \subsection{2}
 \subsection{6}
-   
+\newpage
 \section{Exercises 9.1 (p. 417) }
 \subsection{2}
+\begin{enumerate}[label=(\alph*)]
+    \item $(1+x+x^2+x^3+\cdots)^35$
+    \item $(x+x^2+x^3+\cdots)^35$
+    \item $(x^2+x^3+\cdots)^35$
+    \item $(x^{10}+x^{11}+x^{12}+\cdots)(1+x+x^2+x^3+\cdots)^4$
+    \item $(x^{10}+x^{11}+x^{12}+\cdots)^2(1+x+x^2+x^3+\cdots)^3$
+\end{enumerate}
     
 \section{Exercises 9.2 (p. 431) }
 \subsection{20}
-\subsection{30}
+\begin{enumerate}[label=(\alph*)]
+    \item Palindrome of 11\\
+    with 1: $11-1-1=9, 2^{\lfloor9/2\rfloor}=2^4=16$\\
+    with 2: $11-2-2=7, 2^{\lfloor7/2\rfloor}=2^3=8$\\
+    with 3: $11-3-3=5, 2^{\lfloor5/2\rfloor}=2^2=4$\\
+    with 4: $11-4-4=3, 2^{\lfloor3/2\rfloor}=2^1=2$
+    \item Palindrome of 12\\
+    with 1: $12-1-1=10, 2^5=32$\\
+    with 2: $12-2-2=8, 2^4=16$\\
+    with 3: $12-3-3=6, 2^3=8$\\
+    with 4: $12-4-4=4, 2^2=4$
+\end{enumerate}
 
+\subsection{30}
+If $\{a_1,a_2,a_3,\ldots\}$ is a solution $\Rightarrow a_2-a_1>1,a_3-a_2>1,\ldots$\\
+Let $c_2=a_2-a_1, c_3=a_3-a_2, \ldots$ and $c_1=a_1-1, c_8=50-a_7$
+\begin{align*}
+    \Rightarrow&c_2,c_3\cdots+c_7\geq2, c_1,c_8\geq0\\
+    \Rightarrow&c_1+c_2+\cdots+c_8=50-1=49\\
+    \text{That is }&(1+x+x^2+\cdot)^2(x^2+x^3+\cdots)^6\\
+    =&\bigl(\frac{1}{1-x}\bigr)^2\Bigl(x^2\cdot\bigl(\frac{1}{1-x}\bigr)^6\Bigr)\\
+    =&\frac{x^{12}}{(1-x)^8}\\
+    \text{Coefficient is }&c_1'+c_2'+\cdots+c_8'=49-2\cdot6=37\text{ where }c_0,c_1,\ldots,c_8\geq 0\\
+    \Rightarrow&\binom{-8}{37}(-1)^{37}=\binom{8+37-1}{37}\binom{44}{37}
+\end{align*}
 \section{Exercises 9.3 (p. 435)  }
 \subsection{4}
 \subsection{6}
 
 \section{Exercises 9.4 (p. 439)  }
 \subsection{2}
+\begin{enumerate}[label=(\alph*)]
+    \item $3,3^2,3^3,\ldots$
+    \item $6\cdot 5^n - 3\cdot 2^n$
+    \item $1, 1, 1,\ldots$
+    \item $1,9,14,\ldots$
+    \item $0!, 1!, 2!, \ldots$
+    \item $3n!\cdot 2^n + 1$
+\end{enumerate}
+
 \subsection{6}
 
 \section{Exercises 10.4 (p. 487) }
 \subsection{1}
+Let $f(x)$ denote $\sum_{n=0}^{\infty}{a_nx^n}$
+\begin{align*}
+\Rightarrow&\sum_{n=0}^{\infty}{a_{n+1}x^{n+1}} - \sum_{n=0}^{\infty}{a_nx^n} = \sum_{n=0}^{\infty}{3_nx^{n+1}}\\
+\Rightarrow& f(x)-a_0-xf(x)=x\sum_{n=0}^{\infty}{3_nx^{n}}=\frac{x}{1-3x}\\
+\Rightarrow& f(x)-1-xf(x)=\frac{x}{1-3x}\\
+\Rightarrow&f(x)=\frac{1}{2}\frac{1}{1-x}+\frac{1}{2}\frac{1}{1-3x}\\
+\Rightarrow&a_n=\frac{1}{2}(1+3^n)
+\end{align*}
 \subsection{3}
 
 \section{Prove that if $n$ and $k$ are integers with $1\leq k \leq n$ then}
