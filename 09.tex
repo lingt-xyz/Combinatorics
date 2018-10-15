@@ -163,14 +163,14 @@ Finally, for each real number $n$, we define $\binom{n}{0}=1$
     \item How many 4-element subset from $\{1,2,3,\ldots,15\}$ with no consecutive integers?\\
     Let $\{a_1,a_2,a_3,a_4\}, a_1<a_2<a_3<a_4$ be such a subset.\\
     Define $C_1=a_1-1,C_2=a_2-a_1,C_3=a_3-a_2,C_4=a_4-a_3,C_5=15-a_4$\\
-    $\Rightarrow C_1+C_2+C_3+C_4+C_5=14$\\
-    $\Rightarrow$ Find $C_i\text{s}\equiv$ Find $a_i\text{s}$
+    $\Rightarrow C_1+C_2+C_3+C_4+C_5=14;C_1,C_5\geq 0; C_2,C_3,C_4>1$\\
+    $\Rightarrow$ Find $C_i \equiv$ Find $a_i \equiv$ Find the coefficient of $x^{14}$
     \begin{align*}
     f(x)&=(1+x+x^2+\cdots+x^{14})^2(x^2+x^3+\cdots+x^{14})^3\\
     \equiv g(x)&=(1+x+x^2+\cdots)^2(x^2+x^3+\cdots)^3\\
     &=x^6(1+x+x^2+\cdots)^5\\
     &=\frac{x^6}{(1-x)^5}=x^6\sum_{r=0}^{\infty}{\binom{5+r-1}{r}x^r}\\
-    \frac{x^14}{x^6}&=x^8\Rightarrow r=8\\
+    \frac{x^{14}}{x^6}&=x^8\Rightarrow r=8\\
     \Rightarrow&\binom{5+r-1}{r}=\binom{12}{8}=495
     \end{align*}
 \end{enumerate}
