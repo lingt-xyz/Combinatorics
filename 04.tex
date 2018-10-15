@@ -1,0 +1,83 @@
+\documentclass[a4paper]{article}
+
+\usepackage{fullpage} % Package to use full page
+\usepackage{parskip} % Package to tweak paragraph skipping
+\usepackage{tikz} % Package for drawing
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{amssymb}
+
+\usepackage{enumitem}
+
+\title{4 Properties of the Integers: Mathematical Induction}
+\author{Ling Tan}
+\date{2018/09}
+
+\begin{document}
+
+\maketitle
+
+\section*{4.1 The Well-Ordering Principle: Mathematical Induction}
+\textcolor{blue}{The Well-Ordering Principle}: Every nonempty subset of $\mathbb{Z}^+$ contains a smallest element. (We often express this by saying that $\mathbb{Z}^+$ is well ordered.)\\
+\\
+\textcolor{blue}{Theorem 4.1}: The Principle of Mathematical Induction. Let $S(n)$ denote an open mathematical statement (or set of such open statements) that involves one or more occurrences of the variable $n$, which represents a positive integer.
+\begin{enumerate}
+    \item If $S(1)$ is true; and
+    \item If whenever $S(k)$ is true (for some particular, but arbitrarily chosen, $k\in\mathbb{Z}^+$), then $S(k+1)$ is true;
+    \item Then $S(n)$ is true for all $n\in\mathbb{Z}^+$.
+\end{enumerate}
+
+\section*{4.2 Recursive Definitions}
+$$
+\sum_{i=0}^k F_i^2=F_k\times F_{k+1}\text{, for all }k\geq1\text{ by Induction}
+$$
+\begin{enumerate}
+    \item Base:
+    \begin{itemize}
+        \item $k=1: \sum_{i=0}^1 F_i^2=F_0+F_1=1=F_1\times F_2$
+        \item $k=2: \sum_{i=0}^2 F_i^2=F_0+F_1+F_2=2=F_2\times F_3$
+    \end{itemize}
+    \item Inductive Hypothesis: Assume $\sum_{i=0}^k F_i^2=F_k\times F_{k+1}\text{, for all }k=1,2,\dots,n\text{; that is, }k\leq n$.
+    \item Inductive Step: Must prove $\sum_{i=0}^{n+1} F_i^2=F_{n+1}\times F_{(n+1)+1}$.
+    \item Proof:\\
+    \begin{align*}
+    \sum_{i=0}^{n+1} F_i^2 & = \sum_{i=0}^{n} F_i^2 + F_{n+1}^2 \\
+    & = F_n\times F_{n+1} + F_{n+1}^2 \\ 
+    & = F_{n+1}\times (F_n+F_{n+1}) \\ 
+    & = F_{n+1}\times F_{n+2} \\ 
+    & = F_{n+1}\times F_{(n+1)+1}
+    \end{align*}
+\end{enumerate}
+\subsection*{Examples}
+\begin{enumerate}
+    \item Combinatorial proof: $\binom{n+1}{r}=\binom{n}{r}+\binom{n}{r-1}, n\geq r\geq 0$\\
+    LHS: choose $r$ from $n+1$\\
+    RHS: take $1$ from $n+1$, this $1$ either in $r$ or not in $r$
+    \item $\binom{m+n}{r}=\sum_{k=0}^{r}{\binom{m}{r-k}\binom{n}{k}}$\\
+    Let $|A|=m,|B|=n,A\cap B=\emptyset$\\
+    $\Rightarrow |{A \cup B}|=m+n$\\
+    Select $r$ elements from ${A \cup B}$
+    \item $\binom{n+1}{r+1}=\sum_{j=r}^{n}{\binom{j}{r}}$
+    \begin{align*}
+    \binom{n+1}{r+1}&=\binom{n}{r+1}+\binom{n}{r}\\
+    &=\binom{n-1}{r+1}+\binom{n-1}{r}+\binom{n}{r}\\
+    &=\binom{n-2}{r+1}+\binom{n-2}{r}+\binom{n-1}{r}+\binom{n}{r}\\
+    &=\binom{n-3}{r+1}+\binom{n-3}{r}+\binom{n-2}{r}+\binom{n-1}{r}+\binom{n}{r}\\
+    &=\binom{r+1}{r+1}+\binom{r+1}{r}+\binom{r+2}{r}+\cdots+\binom{n}{r}\\
+    &=\binom{r}{r}+\binom{r+1}{r}+\binom{r+2}{r}+\cdots+\binom{n}{r}\\
+    &=\sum_{j=r}^{n}{\binom{j}{r}}
+    \end{align*}
+    \item Define the integer sequence $a_0,a_1,a_2,a_3,\ldots$, recursively by
+    \begin{enumerate}
+        \item $a_0=1,a_1=1,a_2=1$; and
+        \item For $n\geq 3, a_n=a_{n-1}+a_{n-3}$.
+    \end{enumerate}
+    Prove that $a_{n+2}\geq {\sqrt{2}}^n$ for all $n\geq0$.\\
+    Proof:\\
+    For $n=0,1,2$ we have \ldots, therefore the result is true for these first three cases, and this gives us the basis step for the proof.\\
+    For some $k\geq 2$ we assume the result true for all $n=0,1,2,\ldots,k$. When $n=k+1$ we find that\\
+    $a_{(k+1)+2}=a_{k+3}=a_{k+2}+a_k\geq (\sqrt{2})^k+(\sqrt{2})^{k-2}=[(\sqrt{2})^2+1](\sqrt{2})^{k-2}=3(\sqrt{2})^{k-2}$\\
+    $=(3/2)(2)(\sqrt{2})^{k-2}=(3/2)(\sqrt{2})^k\geq (\sqrt{2})^{k+1}$.
+\end{enumerate}
+
+\end{document}
