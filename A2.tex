@@ -27,7 +27,10 @@
     \item $0\leq x_1 \leq 5, 0\leq x_2 \leq 6, 3\leq x_3 \leq 7, 3\leq x_4 \leq 8$
 \end{enumerate}
 \item[10] $x_1+x_2+\dots+x_{12}=200,10\leq x_i\leq25,x_i$ is a multiple of $5$.
-\item[20] At a 12-week conference in mathematics, Sharon met seven of her friends from college. During the conference she met each friend at lunch 35 times, every pair of them 16 time, every trio eight time, every foursome four times, each set of five twice, and each set of six once, but never all seven at one. If she had lunch every day during the 84 days of the conference, did she ever have lunch along?
+\item[20] At a 12-week conference in mathematics, Sharon met seven of her friends from college. During the conference she met each friend at lunch 35 times, every pair of them 16 time, every trio eight time, every foursome four times, each set of five twice, and each set of six once, but never all seven at one. If she had lunch every day during the 84 days of the conference, did she ever have lunch along?\\
+\begin{equation*}
+    84-\binom{7}{1}(35)+\binom{7}{2}(16)-\binom{7}{3}(8)+\binom{7}{4}(4)-\binom{7}{5}(2)+\binom{7}{6}(1)-\binom{7}{7}=0
+\end{equation*}
 \end{description}
 
 \section*{Exercises 8.2 (p. 401)}
@@ -92,10 +95,17 @@ Let $c_2=a_2-a_1, c_3=a_3-a_2, \ldots$ and $c_1=a_1-1, c_8=50-a_7$
 \item[6] What is the generating function for the number of partitions of $n\in\mathbb{N}$ into summands that
 \begin{enumerate}[label=(\alph*)]
     \item Cannot occur more than five times?
+    \begin{itemize}
+        \item For $1$: one time is $1$, two times is $2$, $\cdots$, five times is $5$.
+        \item For $2$: one time is $2$, two times is $4$, $\cdots$, five times is $10$
+        \item $\cdots$
+        \item For $i$: one time is $i$, two times is $2i$, $\cdots$, five times is $5i$
+    \end{itemize}
     \begin{align*}
     f(x)&=(1+x+x^2+\cdots +x^5)(1+x^2+x^4+\cdots +x^{10})\cdots\\
     &=\Pi_{i=1}^{\infty}{(1+x^i+x^{2i}+\cdots+x^{5i})}\\
-    &=\Pi_{i=1}^{\infty}{\frac{1}{1-x^2}}
+    &=\Pi_{i=1}^{\infty}{\frac{1}{1-x^2}}\\
+    \text{Coefficient of }&x^n
     \end{align*}
     \item Cannot exceed 12 and cannot occur more than five times?
     $x_1+x_2+\cdots+x_i\leq 12,i\leq 5$

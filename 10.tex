@@ -121,7 +121,11 @@ Let $f_n=\sum_{r=0}^{\infty}{a(n,r)x^r}$ be the generating function for the sequ
     f_n-a(n,0)&=xf_n+\big(f_{n-1}-a(n-1,0)\big)\\
     f_n-1&=xf_n+f_{n-1}-1\\
     f_n&=\frac{f_{n-1}}{(1-x)}=\frac{f_{n-2}}{(1-x)^2}=\cdots=\frac{f_0}{(1-x)^n}=\frac{1}{(1-x)^n}\\
-    \Rightarrow &\text{ Coefficient of }x^r\text{ is }\binom{-n}{r}(-1)^r=\binom{n+r-1}{r}
+    \Rightarrow &\text{ Coefficient of }x^r\text{ in $(1-x)^{-n}$ is }\binom{-n}{r}(-1)^r=\binom{n+r-1}{r}
 \end{align*}
-Example 10.41: 
+Example 10.41: The system of recurrence relations
+\begin{align}
+    a_{n+1}&=2a_n+b_n\\
+    b_{n+1}&=a_n+b_n
+\end{align}
 \end{document}
