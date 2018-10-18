@@ -6,6 +6,7 @@
 \usepackage{amsmath}
 \usepackage{hyperref}
 \usepackage{amssymb}
+\usepackage{enumitem}
 
 \title{COMP 339 Assignment 1}
 \author{Ling Tan}
@@ -15,55 +16,63 @@
 
 \maketitle
 
-\section{Exercises 1.1 and 1.2}
-\subsection{10}
+\section*{Exercises 1.1 and 1.2}
+\begin{description}
+\item[10]
+Pamela has $15$ different books. In how many ways can she place her books on two shelves so that there is at least one book on each shelf?\\
 $15! \cdot 14 = 1.8307441\cdot10^{13}$
-\subsection{38}
+\item[38]
+A committee of $15$, nine women and six men is to be seated at a circular table. In how many ways can the seats be assigned so that no two men are seated next to each other?\\
 $(9!/9) \cdot 9 \cdot 8 \cdot 7 \cdot 6 \cdot 5 \cdot 4 = 2438553600 $
-
-\section{Exercises 1.3}
-\subsection{8}
-    \begin{itemize}
-      \item a flush\\
+\end{description}
+\section*{Exercises 1.3}
+\begin{description}
+\item[8]
+In how many ways can a gambler draw five card from a standard deck and get
+    \begin{enumerate}[label=(\alph*)]
+      \item a flush (any five cards all of the same suit)\\
       $ \binom{13}{5}\cdot\binom{4}{1}=1287\cdot 4=5148 $
       \item four aces\\
-      $ \binom{4}{4}\cdot\binom{48}{1}=4\cdot 48=192$
-      \item four of a kind\\
+      $ \binom{4}{4}\cdot\binom{48}{1}=1\cdot 48=48$
+      \item four of a kind (same number)\\
       $\binom{13}{1}\cdot\binom{48}{1}=13\cdot 48=624$
       \item three aces and two jacks\\
       $ \binom{4}{3}\cdot\binom{4}{2}=4\cdot6=24$
       \item three aces and a pair\\
       $\binom{4}{3}\cdot\binom{12}{1}\cdot\binom{4}{2}=4\cdot12\cdot6=288$
-      \item a full house\\
+      \item a full house (three of a kind and a pair)\\
       $\binom{13}{1}\cdot\binom{4}{3}\cdot\binom{12}{1}\cdot\binom{4}{2}=3744$
-      \item three of a kind\\
-      $\binom{13}{1}\cdot\binom{4}{3}\cdot\binom{48}{2}-3744=13\cdot4\cdot1128-3744=54912 $
+      \item three of a kind (the other two are not of a kind)\\
+      $\binom{13}{1}\cdot\binom{4}{3}\cdot\binom{12}{2}\cdot\binom{4}{1}\binom{4}{1}=13\cdot4\cdot66\cdot 4\cdot 4=54912$
       \item two pairs\\
-      $\bigg(\Big(\binom{52}{1}\cdot\binom{3}{1}/2\Big)\cdot\Big(\binom{48}{1}\cdot\binom{3}{1}/2\Big)\bigg)/2\cdot\binom{44}{1}=123552$
-    \end{itemize}
+      $\bigg(\Big(\binom{52}{1}\cdot\binom{3}{1}/2\Big)\cdot\Big(\binom{48}{1}\cdot\binom{3}{1}/2\Big)\bigg)/2\cdot\binom{44}{1}=123552=\binom{13}{2}\binom{4}{2}\binom{4}{2}\binom{44}{1}$
+    \end{enumerate}
 
-\subsection{18}
-    \begin{itemize}
+\item[18]
+For the strings (consists of the symbols $0,1,2$) of length $10$, how many have
+    \begin{enumerate}[label=(\alph*)]
       \item four 0's, three 1's, and three 2's\\
-      $ \binom{10}{4}\cdot\binom{6}{3} =4200$
+      $ \binom{10}{4}\cdot\binom{6}{3} =4200=\frac{10!}{4!3!3!}$
       \item at least eight 1's\\
       $\binom{10}{8}\cdot2\cdot2+\binom{10}{9}\cdot2+\binom{10}{10}=45\cdot4+10\cdot2+1=201$
       \item weight 4\\
       $\binom{10}{4}+\binom{10}{2}\cdot\binom{8}{1}+\binom{10}{2}=210+ 45\cdot 8+45=615$
-    \end{itemize}
+    \end{enumerate}
 
-\subsection{26}
-    \begin{itemize}
+\item[26]
+Find the coefficient of $w^2x^2y^2z^2$ in the expansion of
+    \begin{enumerate}[label=\alph*)]
       \item $(w+x+y+z+1)^{10}$\\
-      $\binom{10}{2}\cdot\binom{8}{2}\binom{6}{2}\cdot\binom{4}{2}\cdot\binom{2}{2}=45\cdot 28\cdot 15\cdot 6\cdot 1=113400$
+      $\binom{10}{2}\cdot\binom{8}{2}\cdot\binom{6}{2}\cdot\binom{4}{2}\cdot\binom{2}{2}=45\cdot 28\cdot 15\cdot 6\cdot 1=113400$
       \item $(2w-x+3y+z-2)^{12}$\\
-      $\binom{12}{2}\cdot2^2\cdot\binom{10}{2}\cdot(-1)^2\binom{8}{2}\cdot3^2\binom{6}{2}\cdot\binom{4}{4}\cdot(-2)^4=66\cdot4\cdot 45\cdot 1\cdot 28\cdot 9\cdot 15\cdot 1\cdot 16=718502400$
+      $\binom{12}{2}\cdot2^2\cdot\binom{10}{2}\cdot(-1)^2\cdot\binom{8}{2}\cdot3^2\cdot\binom{6}{2}\cdot\binom{4}{4}\cdot(-2)^4=66\cdot4\cdot 45\cdot 1\cdot 28\cdot 9\cdot 15\cdot 1\cdot 16=718502400$
       \item $(v+w-2x+y+5z+3)^{12}$\\
       $\binom{12}{2}\cdot\binom{10}{2}\cdot(-2)^2\binom{8}{2}\binom{6}{2}\cdot5^2\cdot\binom{4}{4}\cdot3^4=66\cdot 45\cdot 4\cdot 28\cdot 15\cdot 25\cdot 1 \cdot 81=10103940000$
-    \end{itemize}
+    \end{enumerate}
 
-\subsection{28}
-    \begin{itemize}
+\item[28]
+For any positive integer $n$ determine
+    \begin{enumerate}[label=\alph*)]
       \item $\sum_{i=0}^n\frac{1}{i!(n-i)!}$
         \begin{align*}
             n!\cdot \sum_{i=0}^n\frac{1}{i!(n-i)!}  & = \sum_{i=0}^n\frac{n!}{i!(n-i)!} \\
@@ -80,45 +89,88 @@ $(9!/9) \cdot 9 \cdot 8 \cdot 7 \cdot 6 \cdot 5 \cdot 4 = 2438553600 $
             & = 0\\
             \Rightarrow\sum_{i=0}^n\frac{(-1)^i}{i!(n-i)!}& = 0/n!=0
         \end{align*}
-    \end{itemize}
-
-\section{Exercises 1.4}
-\subsection{12}
-    \begin{itemize}
+    \end{enumerate}
+\end{description}
+\section*{Exercises 1.4}
+\begin{description}
+\item[12]
+Determine the number of integer solutions for
+\begin{equation*}
+    x_1+x_2+x_3+x_4+x_5<40,
+\end{equation*}
+where
+    \begin{enumerate}[label=\alph*)]
       \item $x_i \ge 0 $\\
+      $x_1+x_2+x_3+x_4+x_5+x_6=40,x_6>=1$\\
+      $\Rightarrow x_1+x_2+x_3+x_4+x_5+x_6=39,x_i\ge 0$\\
       $\binom{39+6-1}{39}=\binom{44}{39}=1086008 $
       \item $x_i \ge -3 $\\
+      $x_1+x_2+x_3+x_4+x_5<55,x_i\ge 0$\\
+      $x_1+x_2+x_3+x_4+x_5+x_6=55,x_6>=1$\\
+      $x_1+x_2+x_3+x_4+x_5+x_6=54,x_i>=0$\\
       $\binom{39+3\cdot5+6-1}{39+3\cdot5}=\binom{59}{54}=5006386 $
-    \end{itemize}
+    \end{enumerate}
 
-\subsection{16}
-    \begin{align*}
-        \binom{n-1}{19-1} & = \binom{n-1}{64-1} \\
-        \binom{n-1}{18} & = \binom{n-1}{63} \\
-        \Rightarrow n-1 & = 18+63=82
-    \end{align*}
-    
-\subsection{18}
-    $
+\item[16]
+For which positive integer $n$ will be the equations
+\begin{enumerate}[label=(\arabic*)]
+    \item $x_1+x_2+x_3+\cdots+x_{19}=n$, and
+    \item $y_1+y_2+y_3+\cdots+y_{64}=n$.
+\end{enumerate}
+have the same number of positive integer solutions?
+    \begin{equation*}
     \begin{cases}
-    x_1+x_2+x_3+\dots+x_7&=37\\
+    x_1+x_2+x_3+\cdots+x_{19}=n\\
+    y_1+y_2+y_3+\cdots+y_{64}=n
+    \end{cases}
+    \Rightarrow
+    \begin{cases}
+    x_1+x_2+x_3+\cdots+x_{19}=n-19\\
+    y_1+y_2+y_3+\cdots+y_{64}=n-64
+    \end{cases}
+    \end{equation*}
+    \begin{align*}
+        \binom{19+(n-19)-1}{n-19} & = \binom{64+(n-64)-1}{n-64} \\
+        \binom{n-1}{n-19} & = \binom{n-1}{n-64} \\
+        \binom{n-1}{18} & = \binom{n-1}{63} \\
+        \Rightarrow n-1 & = 18+63=81\Rightarrow n=81+1=82
+    \end{align*}
+\item[18]
+How many integer solutions are there to the pair of equations $x_1+x_2+x_3+\cdots x_7=37,x_1+x_2+x_3=6$?
+    \begin{enumerate}[label=\alph*)]
+    \item non-negative
+    \begin{equation*}
+    \begin{cases}
+    x_1+x_2+x_3+\cdots x_7&=37\\
+    x_1+x_2+x_3&=6
+    \end{cases}
+    \Rightarrow
+    \begin{cases}
+    x_4+x_5+x_6+x_{7}&=37-6=31\\
+    x_1+x_2+x_3&=6
+    \end{cases}
+    \end{equation*}
+      $ \binom{4+31-1}{31}\cdot\binom{3+6-1}{6}=\binom{34}{31}\cdot\binom{8}{6}=5984\cdot 28=167552$
+      \item $x_1,x_2,x_3>0$
+     \begin{equation*}
+    \begin{cases}
+    x_4+x_5+x_6+x_{7}&=31\\
     x_1+x_2+x_3&=6
     \end{cases}
     \Rightarrow
     \begin{cases}
     x_4+x_5+x_6+x_7&=31\\
-    x_1+x_2+x_3&=6
+    x_1+x_2+x_3&=3
     \end{cases}
-    $
-    \begin{itemize}
-      \item a)\\
-      $ \binom{4+31-1}{31}\cdot\binom{3+6-1}{6}=\binom{34}{31}\cdot\binom{8}{6}=5984\cdot 28=167552$
-      \item b)\\
-      $\binom{34}{31}\cdot\binom{5}{2}=5984\cdot 10=59840$
-    \end{itemize}
-    
-\section{Exercises 4.2, P241}
-\subsection{10}
+    \end{equation*}
+      $\binom{4+31-1}{31}\cdot\binom{3+3-1}{3}=\binom{34}{31}\cdot\binom{5}{3}=5984\cdot 10=59840$
+    \end{enumerate}
+\end{description}
+\section*{Exercises 4.2, P241}
+\begin{description}
+
+
+\item[10] Prove that $| x_1+x_2+\dots+x_{n-1}+x_n|\leq|x_1|+|x_2|+\dots+|x_{n-1}|+|x_n|,n\in\mathbb{Z}^+,n\ge2 $\\
 \textbf{Base:} If $n=2, |x_1+x_2|\leq|x_1|+|x_2|$ \hfill Given\\
 \textbf{Inductive Hypothesis:} Assume $|x_1+x_2+\dots+x_n|\leq|x_1|+|x_2|+\dots+|x_k|,k\in\mathbb{Z}^+,k=2,3,\dots,n$\\
 \textbf{Inductive Step:} Must prove $|x_1+x_2+\dots+x_n+x_{n+1}|\leq|x_1|+|x_2|+\dots+|x_n|+|x_{n+1}|$\\
@@ -129,7 +181,7 @@ $\Rightarrow |(x_1+x_2+\dots+x_n)+x_{n+1}|\leq(|x_1|+|x_2|+\dots+|x_n|)+|x_{n+1}
 $\Rightarrow |x_1+x_2+\dots+x_n+x_{n+1}|\leq|x_1|+|x_2|+\dots+|x_n|+|x_{n+1}| $ \hfill \\
 \textbf{Conclusion: }$| x_1+x_2+\dots+x_{n-1}+x_n|\leq|x_1|+|x_2|+\dots+|x_{n-1}|+|x_n|,n\in\mathbb{Z}^+,n\ge2 $
 
-\subsection{12 prove by induction}
+\item[12 Prove by induction] Prove that $F_0+F_1+F_2+\dots+F_n=F_{n+2}-1,n\ge0 $\\
 \textbf{Base:} \\
 If $n=0, F_0=\sum_{i=0}^0 F_i=F_0=0, F_2-1=1-1=0\Rightarrow LHS=RHS$ \hfill $F_0=0, F_2=1$\\
 If $n=1, F_1=\sum_{i=0}^1 F_i=F_0+F_1=1, F_3-1=2-1=1\Rightarrow LHS=RHS$ \hfill $F_0=0, F_1=1,F_3=2$\\
@@ -145,27 +197,27 @@ If $n=1, F_1=\sum_{i=0}^1 F_i=F_0+F_1=1, F_3-1=2-1=1\Rightarrow LHS=RHS$ \hfill 
 \end{align*}
 \textbf{Conclusion: }$F_0+F_1+F_2+\dots+F_n=F_{n+2}-1,n\ge0 $
 
-\subsection{18}
-\begin{itemize}
-  \item a)\\
+\item[18] Consider the permutations of $1,2,3,4$. The permutation $1432$, for instance, is said to have one \textit{ascent} $14$.
+\begin{enumerate}[label=\alph*)]
+  \item
     $k=0: 321 \hspace{3mm} (1)$\\
     $k=1: 132, 213, 312, 231 \hspace{3mm} (4)$\\
-    $k=2: 123 \hspace{3mm} (1)$\\
-  \item b)\\
+    $k=2: 123 \hspace{3mm} (1)$
+  \item
     $k=0: 4321 \hspace{3mm} (1)$\\
     $k=1: 1432, 4132, 3142, 2143, 3214, 4213, 4312, 4231, 2431, 3421, 3241 \hspace{3mm} (11)$\\
     $k=2: 1243, 1324, 1342, 1423, 2134, 3124, 4123, 2314, 3412, 2413, 2341 \hspace{3mm} (11)$\\
-    $k=3: 1234 \hspace{3mm} (1)$\\
-  \item c)\\
+    $k=3: 1234 \hspace{3mm} (1)$
+  \item
   $6-4=2$
-  \item d)\\
+  \item
   $m-1-k$
-  \item e)\\
+  \item
   $5: 912436587,192436587,129436587,124396587,124365987$\\
   $4: 124936587,124369587,124365897,124365879$\\
-  \item f)\\
+  \item
   $\pi_{m,k}=(m-k)\pi_{m-1,k-1}+(k+1)\pi_{m-1,k}$
-\end{itemize}
-
+\end{enumerate}
+\end{description}
 
 \end{document}

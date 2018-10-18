@@ -16,35 +16,45 @@
 
 \maketitle
 
-\section{Exercises 8.1 (p. 396)}
-\subsection{6: Integer solutions to $x_1+x_2+x_3+x_4=19$}
-\begin{itemize}
+\section*{Exercises 8.1 (p. 396)}
+\begin{description}
+\item[6] Integer solution to $x_1+x_2+x_3+x_4=19$.
+\begin{enumerate}[label=\alph*)]
     \item $0\leq x_i$ for all $1\leq i\leq 4$\\
     $$|S| = N =S_0=\binom{19+4-1}{19}=\binom{22}{19}$$
     \item $0\leq x_i < 8$ for all $1\leq i\leq 4$\\
     $$\text{Condition }c_i\text{ is }x_i>=8$$
-    
     \item $0\leq x_1 \leq 5, 0\leq x_2 \leq 6, 3\leq x_3 \leq 7, 3\leq x_4 \leq 8$
-\end{itemize}
-\subsection{10: $x_1+x_2+\dots+x_{12}=200,10\leq x_i\leq25$}
-\subsection{20}
+\end{enumerate}
+\item[10] $x_1+x_2+\dots+x_{12}=200,10\leq x_i\leq25,x_i$ is a multiple of $5$.
+\item[20] At a 12-week conference in mathematics, Sharon met seven of her friends from college. During the conference she met each friend at lunch 35 times, every pair of them 16 time, every trio eight time, every foursome four times, each set of five twice, and each set of six once, but never all seven at one. If she had lunch every day during the 84 days of the conference, did she ever have lunch along?
+\end{description}
 
-\section{Exercises 8.2 (p. 401)}
-\subsection{2}
-\subsection{6}
-\newpage
-\section{Exercises 9.1 (p. 417) }
-\subsection{2}
+\section*{Exercises 8.2 (p. 401)}
+\begin{description}
+\item[2] Arrange letter ARRANGEMENT
+\begin{enumerate}[label=\alph*)]
+    \item There are exactly two pair of consecutive identical letters? at least two pairs of consecutive identical letters?
+    \item Answer (a), replacing two with three.
+\end{enumerate}
+\item[6] Zelma is having a luncheon for herself and nine of the women in her tennis league. On the morning of the luncheon she places name cards at the ten places at her table and then leaves to run a last-minute errand. Her husband, Herbert, comes from his morning tennis match and unfortunately leaves the back door open. A gust of wind scatters the ten name cards. In how many ways can Herbert replace the ten cards at the places at the table so that exactly four of the ten women will be seated where Zelma had wanted them? In how many ways will at least four of them be seated where they were supposed to be?
+\end{description}
+
+\section*{Exercises 9.1 (p. 417) }
+\begin{description}
+\item [2]
 \begin{enumerate}[label=(\alph*)]
-    \item $(1+x+x^2+x^3+\cdots)^35$
+    \item $(1+x+x^2+x^3+\cdots x^{35})^5$
     \item $(x+x^2+x^3+\cdots)^35$
     \item $(x^2+x^3+\cdots)^35$
     \item $(x^{10}+x^{11}+x^{12}+\cdots)(1+x+x^2+x^3+\cdots)^4$
     \item $(x^{10}+x^{11}+x^{12}+\cdots)^2(1+x+x^2+x^3+\cdots)^3$
 \end{enumerate}
+\end{description}
     
-\section{Exercises 9.2 (p. 431) }
-\subsection{20}
+\section*{Exercises 9.2 (p. 431) }
+\begin{description}
+\item[20] Palindrome
 \begin{enumerate}[label=(\alph*)]
     \item Palindrome of 11\\
     with 1: $11-1-1=9, 2^{\lfloor9/2\rfloor}=2^4=16$\\
@@ -57,8 +67,7 @@
     with 3: $12-3-3=6, 2^3=8$\\
     with 4: $12-4-4=4, 2^2=4$
 \end{enumerate}
-
-\subsection{30}
+\item [30]
 If $\{a_1,a_2,a_3,\ldots\}$ is a solution $\Rightarrow a_2-a_1>1,a_3-a_2>1,\ldots$\\
 Let $c_2=a_2-a_1, c_3=a_3-a_2, \ldots$ and $c_1=a_1-1, c_8=50-a_7$
 \begin{align*}
@@ -70,12 +79,33 @@ Let $c_2=a_2-a_1, c_3=a_3-a_2, \ldots$ and $c_1=a_1-1, c_8=50-a_7$
     \text{Coefficient is }&c_1'+c_2'+\cdots+c_8'=49-2\cdot6=37\text{ where }c_0,c_1,\ldots,c_8\geq 0\\
     \Rightarrow&\binom{-8}{37}(-1)^{37}=\binom{8+37-1}{37}\binom{44}{37}
 \end{align*}
-\section{Exercises 9.3 (p. 435)  }
-\subsection{4}
-\subsection{6}
+\end{description}
+\section*{Exercises 9.3 (p. 435)  }
+\begin{description}
+\item[4] Find the generating function for the number of integer solutions of
+\begin{enumerate}[label=\alph*)]
+    \item $2w+3x+5y+7z=n,\quad 0\leq w,x,y,z$\\
+    $f(x)=(1+x^2+x^4+\cdots)(1+x^3+x^6+\cdots)(1+x^5+x^{10}+\cdots)(1+x^7+x^{14}+\cdots)$
+    \item $2w+3x+5y+7z=n,\quad 0\leq w, 4\leq x,y, 5\leq z$\\
+    $f(x)=(1+x^2+x^4+\cdots)(x^{12}+x^{15}+x^{18}+\cdots)(x^{20}+x^{25}+x^{30}+\cdots)(x^{35}+x^{42}+x^{49}+\cdots)$
+\end{enumerate}
+\item[6] What is the generating function for the number of partitions of $n\in\mathbb{N}$ into summands that
+\begin{enumerate}[label=(\alph*)]
+    \item Cannot occur more than five times?
+    \begin{align*}
+    f(x)&=(1+x+x^2+\cdots +x^5)(1+x^2+x^4+\cdots +x^{10})\cdots\\
+    &=\Pi_{i=1}^{\infty}{(1+x^i+x^{2i}+\cdots+x^{5i})}\\
+    &=\Pi_{i=1}^{\infty}{\frac{1}{1-x^2}}
+    \end{align*}
+    \item Cannot exceed 12 and cannot occur more than five times?
+    $x_1+x_2+\cdots+x_i\leq 12,i\leq 5$
+\end{enumerate}
+\end{description}
 
-\section{Exercises 9.4 (p. 439)  }
-\subsection{2}
+\section*{Exercises 9.4 (p. 439)  }
+\begin{description}
+\item[2]
+\item[6]
 \begin{enumerate}[label=(\alph*)]
     \item $3,3^2,3^3,\ldots$
     \item $6\cdot 5^n - 3\cdot 2^n$
@@ -84,27 +114,41 @@ Let $c_2=a_2-a_1, c_3=a_3-a_2, \ldots$ and $c_1=a_1-1, c_8=50-a_7$
     \item $0!, 1!, 2!, \ldots$
     \item $3n!\cdot 2^n + 1$
 \end{enumerate}
+\end{description}
 
-\subsection{6}
 
-\section{Exercises 10.4 (p. 487) }
-\subsection{1}
-Let $f(x)$ denote $\sum_{n=0}^{\infty}{a_nx^n}$
-\begin{align*}
-\Rightarrow&\sum_{n=0}^{\infty}{a_{n+1}x^{n+1}} - \sum_{n=0}^{\infty}{a_nx^n} = \sum_{n=0}^{\infty}{3_nx^{n+1}}\\
-\Rightarrow& f(x)-a_0-xf(x)=x\sum_{n=0}^{\infty}{3_nx^{n}}=\frac{x}{1-3x}\\
-\Rightarrow& f(x)-1-xf(x)=\frac{x}{1-3x}\\
-\Rightarrow&f(x)=\frac{1}{2}\frac{1}{1-x}+\frac{1}{2}\frac{1}{1-3x}\\
-\Rightarrow&a_n=\frac{1}{2}(1+3^n)
-\end{align*}
-\subsection{3}
+\section*{Exercises 10.4 (p. 487) }
+\begin{description}
+\item[1] Solve the following recurrence relations by the method of generating functions.
+\begin{enumerate}[label=\alph*)]
+    \item $a_{n+1}-a_n=3^n,n\geq 0, a_0=1$\\
+    Let $f(x)$ denote $\sum_{n=0}^{\infty}{a_nx^n}$
+    \begin{align*}
+    \Rightarrow&\sum_{n=0}^{\infty}{a_{n+1}x^{n+1}} - \sum_{n=0}^{\infty}{a_nx^n} = \sum_{n=0}^{\infty}{3_nx^{n+1}}\\
+    \Rightarrow& f(x)-a_0-xf(x)=x\sum_{n=0}^{\infty}{3_nx^{n}}=\frac{x}{1-3x}\\
+    \Rightarrow& f(x)-1-xf(x)=\frac{x}{1-3x}\\
+    \Rightarrow&f(x)=\frac{1}{2}\frac{1}{1-x}+\frac{1}{2}\frac{1}{1-3x}\\
+    \Rightarrow&a_n=\frac{1}{2}(1+3^n)
+    \end{align*}
+    \item $a_{n+1}-a_n=n^2,n\geq 0,a_0=1$
+    \item $a_{n+2}-3a_{n+1}+2a_n=0,n\geq 0,a_0=1,a_1=6$
+    \item $a_{n+2}-2a_{n+1}+a_n=2^n,n\geq 0,a_0=1,a_1=2$
+\end{enumerate}
 
-\section{Prove that if $n$ and $k$ are integers with $1\leq k \leq n$ then}
+\item[3] Solve the following systems of recurrence relations.
+\begin{enumerate}[label=\alph*)]
+    \item TODO
+    \item TODO
+\end{enumerate}
+\end{description}
+
+\section*{Prove}
+If $n$ and $k$ are integers with $1\leq k \leq n$ then
 $$
 k\cdot \binom{n}{k}=n\cdot \binom{n-1}{k-1}
 $$
-
-\subsection{By using a combinatorial proof.}
+\begin{description}
+\item [a)]{By using a combinatorial proof.}
 \begin{itemize}
     \item $k\cdot \binom{n}{k}\equiv$ number of the ways that 
         \begin{itemize}
@@ -120,7 +164,7 @@ $$
         \end{itemize}
 \end{itemize}
 
-\subsection{By using an algebraic proof.}
+\item [b)]{By using an algebraic proof.}
 \begin{align*}
     k\cdot \binom{n}{k} & = k\cdot \frac{n!}{k!(n-k)!}\\
     & = \frac{k}{k!}\cdot \frac{n!}{(n-k)!}\\
@@ -129,8 +173,9 @@ $$
     & = n \cdot \frac{(n-1)!}{(k-1)!\bigl((n-1)-(k-1)\bigr)!}\\
     & = n\cdot \binom{n-1}{k-1}\\
 \end{align*}
-
-\section{Give a combinatorial proof that}
+\end{description}
+\section*{Prove}
+Give a combinatorial proof that
 $$
 \sum_{k=1}^n k\cdot \binom{n}{k} = n \cdot 2^{n-1}
 $$

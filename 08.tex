@@ -97,6 +97,10 @@ $$
             &+\binom{6}{4}2^4(8-1)!-\binom{6}{5}2^5(7-1)!+\binom{6}{6}2^6(6-1)!
         \end{align*}
     \end{itemize}
+    \item 17: In how many ways can three $x$’s, three $y$’s and three $z$’s be arranged so that no consecutive triple of the same letter appears?\\
+    Let $c_1$: the three $x$'s are together; $c_2$: $y$'s; $c_3$: $z$'s.\\
+    $N=\frac{9!}{3!3!3!},N(c_1)=N(c_2)=N(c_3)=\frac{7!}{3!3!},N(c_ic_j)=\frac{5!}{3!},N(c_1c_2c_3)=3!$\\
+    $N(\bar{c_1}\bar{c_2}\bar{c_3})=S_0-S_1+S_2-S_3$
 \end{enumerate}
 \section*{8.2 Generalization of the Principle}
 \textcolor{blue}{Theorem 8.2}: Under the hypotheses of Theorem 8.1, for each $1\leq m\leq t$, the number of elements in $S$ that satisfy exactly $m$ of the conditions $c_1, c_2, \dots, c_t$ is given by
@@ -114,6 +118,7 @@ If $m=0$, we obtain Theorem 8.1\\
 \textcolor{blue}{Corollary 8.2}:  $L_m=S_m-\binom{m}{m-1}S_{m+1}+\binom{m+1}{m-1}S_{m+2}-\dots +(-1)^{t-m}\binom{t-1}{m-1}S_t$
 \subsection*{Examples}
 \begin{enumerate}
-    \item Example
+    \item 5: In how many ways can one distribute ten distinct prizes among four students with exactly two students getting nothing? How many ways have at least two students getting nothing?\\
+    Here $A=\{1,2,3,\ldots, 10\},B=\{1,2,3,4\}$
 \end{enumerate}
 \end{document}

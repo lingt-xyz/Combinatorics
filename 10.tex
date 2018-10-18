@@ -60,5 +60,68 @@ Using a partial fraction decomposition, we find that
     \frac{x}{(1-x)^2(1-3x)}=\frac{A}{1-x}+\frac{B}{(1-x)^2}+\frac{C}{1-3x}
 \end{equation*}
 \\
-Example 10.39: 
+Example 10.39: Consider the recurrence relation
+    $$
+    a_{n+2}-5a_{n+1}+6a_n=2,\quad n\geq0,\quad a_0=3,\quad a_1=7.
+    $$
+\begin{enumerate}
+    \item We first multiply this given relation by $x^{n+2}$ because $n+2$ is the \textcolor{red}{largest subscript} that appears.
+    \label{step1}
+    $$
+    a_{n+2}x^{n+2}-5a_{n+1}x^{n+2}+6a_nx^{n+2}=2x^{n+2}
+    $$
+    \item The we sum all of the equations represented by the result in step \ref{step1} and obtain
+    $$
+    \sum_{n=0}^{\infty}{a_{n+2}x^{n+2}}-5\sum_{n=0}^{\infty}{a_{n+1}x^{n+2}}+6\sum_{n=0}^{\infty}{a_nx^{n+2}}=2\sum_{n=0}^{\infty}{x^{n+2}}
+    $$
+    \label{step2}
+    \item In order to have each of the subscripts on $a$ match the corresponding exponent on $x$, rewrite the equation in step \ref{step2} as
+    $$
+    \sum_{n=0}^{\infty}{a_{n+2}x^{n+2}}-5x\sum_{n=0}^{\infty}{a_{n+1}x^{n+1}}+6x^2\sum_{n=0}^{\infty}{a_nx^{n}}=2x^2\sum_{n=0}^{\infty}{x^{n}}
+    $$
+    \label{step3}
+    \item Let $f(x)=\sum_{n=0}^{\infty}{a_nx^n}$ be the generating function for the solution. The equation in step \ref{step3} now takes the form
+    $$
+    \big(f(x)-a_0-a_1x\big)-5x\big(f(x)-a_0\big)+6x^2f(x)=\frac{2x^2}{1-x},
+    $$
+    that is,
+    $$
+    \big(f(x)-3-7x\big)-5x\big(f(x)-3\big)+6x^2f(x)=\frac{2x^2}{1-x}.
+    $$
+    \item Solve for $f(x)$
+    \begin{equation*}
+        (1-5x+6x^2)f(x)=3-8x+\frac{2x^2}{1-x}=\frac{3-11x+10x^2}{1-x},
+    \end{equation*}
+    from which it follows that
+    \begin{equation*}
+        f(x)=\frac{3-11x+10x^2}{(1-5x+6x^2)(1-x)}=\frac{3-5x}{(1-3x)(1-x)}=\frac{2}{1-3x}+\frac{1}{1-x}=2\sum_{n=0}^{\infty}{(3x)^n}+\sum_{n=0}^{\infty}{x^n}.
+    \end{equation*}
+    Consequently, $a_n=2(3^n)+1,n\geq 0$.
+\end{enumerate}
+
+Example 10.40: $a(n,r)$ denote select $r$ from $n$ distinct objects with repetition.
+\begin{equation*}
+a(n,r)=\binom{n+r-1}{r},
+\end{equation*}
+with $a(n,0)=1,a(0,r)=0\text{ for }\forall{r>0},a(0,0)=1$.\\
+Let $\{b_{1},b_{2},\ldots,b_{n}\}$ be the set of these objects, and consider $b_1$.
+\begin{equation*}
+a(n,r)=
+\begin{cases}
+b_1\text{ is selected}&\Rightarrow a(n,r-1)\\
+b_1\text{ is not selected}&\Rightarrow a(n-1,r)
+\end{cases}
+\end{equation*}
+Let $f_n=\sum_{r=0}^{\infty}{a(n,r)x^r}$ be the generating function for the sequence $a(n,0),a(n,1),\ldots$.
+\begin{align*}
+    a(n,r)&=a(n,r-1)+ a(n-1,r)\\
+    a(n,r)x^r&=a(n,r-1)x^r+ a(n-1,r)x^r&\text{multiply } x^r\\
+    \sum_{r=1}^{\infty}{a(n,r)x^r}&=\sum_{r=1}^{\infty}{a(n,r-1)x^r}+ \sum_{r=1}^{\infty}{a(n-1,r)x^r}&\text{sum}\\
+    \sum_{r=1}^{\infty}{a(n,r)x^r}&=x\sum_{r=1}^{\infty}{a(n,r-1)x^{r}}+ \sum_{r=1}^{\infty}{a(n-1,r)x^r}\\
+    f_n-a(n,0)&=xf_n+\big(f_{n-1}-a(n-1,0)\big)\\
+    f_n-1&=xf_n+f_{n-1}-1\\
+    f_n&=\frac{f_{n-1}}{(1-x)}=\frac{f_{n-2}}{(1-x)^2}=\cdots=\frac{f_0}{(1-x)^n}=\frac{1}{(1-x)^n}\\
+    \Rightarrow &\text{ Coefficient of }x^r\text{ is }\binom{-n}{r}(-1)^r=\binom{n+r-1}{r}
+\end{align*}
+Example 10.41: 
 \end{document}
