@@ -1,68 +1,422 @@
-\documentclass[a4paper]{article}
+\documentclass[letter]{book}
 
 \usepackage{fullpage} % Package to use full page
 \usepackage{parskip} % Package to tweak paragraph skipping
 \usepackage{tikz} % Package for drawing
-\usepackage{amsmath}
-\usepackage{hyperref}
+\usetikzlibrary{arrows.meta}
+\newcommand{\mynode}[2]{\tikz[remember picture]{\node[inner sep=0pt](#1){$#2$};}}
+
 \usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amscd}
+
+%https://en.wikibooks.org/wiki/LaTeX/Theorems
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{corollary}{Corollary}[chapter]
+
+\theoremstyle{definition}
+\newtheorem{mydef}{Definition}[chapter]
+\newtheorem*{ex}{Example}
+
+\newtheorem{prop}{Proposition}[chapter]
+\theoremstyle{remark}
+\newtheorem*{rem}{Remark}
 
 \usepackage{enumitem}
 
 \usepackage{tkz-graph}
 \usepackage{float}
 
-\title{11 An Introduction to Graph Theory}
-\author{Ling Tan}
-\date{2018-10-11}
+\usepackage{hyperref}
+
+\usepackage{MnSymbol}
+
+%https://tex.stackexchange.com/questions/229355/algorithm-algorithmic-algorithmicx-algorithm2e-algpseudocode-confused
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+
+\usepackage{graphicx}
+\graphicspath{ {./resources/} }
+
+%https://tex.stackexchange.com/questions/165021/fixing-the-location-of-the-appearance-in-algorithmicx-environment
+\usepackage{float}% http://ctan.org/pkg/float
+
+%https://tex.stackexchange.com/questions/25369/how-to-rotate-a-table
+\usepackage[graphicx]{realboxes}
 
 \begin{document}
 
-\maketitle
+\setcounter{chapter}{10}
+\chapter{An Introduction to Graph Theory}
+\section{Definitions and Examples}
+\begin{mydef}
+    Let $V$ be a finite nonempty set, and let $E\subseteq V\times V$. The pair $(V,E)$ is then called a \textcolor{red}{directed graph} (on $V$) or \textcolor{red}{digraph} (on $V$), where $V$ is the set of vertices, or nodes, and $E$ is its set of (directed) edges or arcs. We write $G=(V,E)$ to denote such a graph. \\
+    When the direction of the edges does not matter, then $G$ is called undirected graph.\\
+    If $u,v\in V$ and $e=(u,v)\in E$, then
+    \begin{itemize}
+        \item vertices $u$ and $v$ are \textcolor{red}{adjacent}.
+        \item edge $e=(u,v)$ is \textcolor{red}{incident} with $u$ and $v$.
+    \end{itemize}
+\end{mydef}
+\bigskip 
+\begin{mydef}
+    Let $x,y$ be (not necessarily distinct) vertices in an undirected graph $G=(V,E)$. An $x-y$ walk in $G$ is a (loop-free) finite alternating sequence
+        \begin{equation*}
+        x=x_0,e_1,x_1,e_2,x_2,e_3,\ldots,e_{n-1},x_{n-1},e_n,x_n=y,
+        \end{equation*}
+    where $e_i=\{x_{i-1},x_i\},1\leq i\leq n$.\\
+    The length of this walk is $n$, the number of edges in the walk.
+\end{mydef}
+\bigskip 
+\begin{mydef}
+    Consider any $x-y$ walk in an undirected graph $G=(V,E)$.
+    \begin{enumerate}[label=\alph*)]
+        \item If no edge in the $x-y$ walk is repeated, then the walk is called an $x-y$ trail. A closed $x-x$ trail is called a circuit.
+        \item If no vertex of the $x-y$ walk occurs more than once, the the walk is called an $x-y$ path. When $x=y$, then term \textit{cycle} is also used to describe such a closed path.
+    \end{enumerate}
+\end{mydef}
+\begin{equation*}
+    \begin{CD}
+    u-v\text{ walk} @>\text{no repeated edges}>> u-v\text{ trail} @>{\text{no repeated vertices}}>> u-v\text{ path} \\
+    @. @Vu=vVV @Vu=vVV \\
+    @. \text{circuit} @. \text{cycle}
+    \end{CD}
+\end{equation*}
+\subsection*{Example}
+    \begin{center}
+        \begin{tikzpicture}[auto]
+           \begin{scope}[every node/.style={circle,draw=black,minimum size=7mm}]
+            \node (A) at (-4,0) {$A$};
+            \node (B) at (-1,0) {$B$};
+            \node (C) at (2,0) {$C$};
+            \node (D) at (-3,-2) {$D$};
+            \node (E) at (1,-2) {$E$};
+            \node (F) at (4,-1) {$F$};
+           \end{scope}
+           \begin{scope}[every edge/.style={draw=black}]
+            \draw  (A) edge[red] node{$e_1$} (B);
+            \draw  (B) edge[red] node{$e_2$} (C);
+            \draw  (B) edge[red] node{$e_3$} (D);
+            \draw  (C) edge[red] node{$e_4$} (E);
+            \draw  (D) edge[red] node{$e_5$} (E);
+            \draw  (D) edge node{$e_6$} (C);
+            \draw  (C) edge node{} (F);
+            \draw  (C) edge node{} (F);
+           \end{scope}
+        \end{tikzpicture}
+    \end{center}
+    \begin{itemize}
+        \item trail: $Ae_1Be_2Ce_4Ee_5De_3B$.
+        \item circuit: $Ce_4Ee_5De_6C$, also cycle.
+    \end{itemize}
+\bigskip
+\begin{theorem}\label{11.1}
+    Let $G=(V,E)$ be an undirected graph, with $a,b\in V, a\neq b$. If there exsits a trail in $G$ from $a$ to $b$, then there is a path in $G$ from $a$ to $b$.
+\end{theorem}
+\bigskip
+\begin{mydef}
+    Let $G=(V,E)$ be an undirected graph. We call $G$ connected if there is a path between any two distinct vertices of $G$.\\
+    A graph that is not connected is called disconnected.
+\end{mydef}
+\bigskip
+\begin{mydef}
+    For any graph $G=(V,E)$, the number of components of $G$ is denoted by $\kappa(G)$.
+\end{mydef}
+\bigskip
+\begin{mydef}
+    Let $V$ be a finite nonempty set. We say that the pair $(V,E)$ determines a multigraph $G$ with vertex set $V$ and edge set $E$ if, for some $x,y\in V$, there are two or more edges in $E$ of the form $(x,y)$, or $\{x,y\}$.
+\end{mydef}
 
-\section*{11.1 Definitions and Examples}
-\textcolor{blue}{Definition 11.1}: Let $V$ be a finite nonempty set, and let $E\subseteq V\times V$. The pair $(V,E)$ is then called a directed graph (on $V$) or digraph (on $V$), where $V$ is the set of vertices, or nodes, and $E$ is its set of (directed) edges or arcs. We write $G=(V,E)$ to denote such a graph.
 
-\textcolor{blue}{Definition 11.2?}: Let $x,y$ be (not necessarily distinct) vertices in an undirected graph $G=(V,E)$. An $x-y$ walk in $G$ is a (loop-free) finite alternating sequence
-$$
-x=x_0,e_1,x_1,e_2,x_2,e_3,\ldots,e_{n-1},x_{n-1},e_n,x_n=y
-$$
+\section{Subgraphs, Complements, and Graph Isomorphism}
+\begin{mydef}
+    If $G=(V,E)$ is a graph, then $G_1=(V_1,E_1)$ is called a subgraph of $G$ if $\emptyset\neq V_1\subseteq V$ and $E_1\subseteq E$, where each edge in $E_1$ is incident with vertices in $V_1$.
+\end{mydef}
+\bigskip
+\begin{mydef}
+    Given a graph $G=(V,E)$, let $G_1=(V_1,E_1)$ be a subgraph of $G$. If $V_1=V$, then $G_1$ is called a spanning subgraph of $G$.
+\end{mydef}
+\bigskip
+\begin{mydef}
+    induced subgraph
+\end{mydef}
+\bigskip
+\begin{mydef}
+    Let $v$ be a vertex in a directed or an undirected graph $G=(V,E)$. The subgraph of $G$ denoted by $G-v$ has the vertex set $V_1=V-\{v\}$ and the edge set $E_1\subseteq E$, where $E_1$ contains all the edges in $E$ except for those that are incident with the vertex $v$.
+\end{mydef}
+\bigskip
+\begin{mydef}
+    Let $V$ be a set of $n$ vertices. The \textcolor{red}{complete graph} on $V$ denoted by $K_n$, is a loop-free undirected graph, where for all $a,b\in V, a\neq b$, there is edge $\{a,b\}$.
+\end{mydef}
+\bigskip
+\begin{mydef}
+    Let $G$ be a loop-free undirected graph on $n$ vertices. The complement of $G$, denoted $\bar G$, is the subgraph of $K_n$ consisting of the $n$ vertices in $G$ and all edges that are not in $G$. Any complement graph of a complete graph is called a null graph.
+\end{mydef}
+\bigskip
+\begin{mydef}
+    Let $G_1=(V_1,E_1)$ and $G_2=(V_2,E_2)$ be two undirected graphs. A function $f:V_1\rightarrow V_2$ is called a graph \textcolor{red}{isomorphism} if
+    \begin{enumerate}[label=\alph*)]
+        \item $f$ is one-to-one and onto, and
+        \item for all $a,b\in V_1, \{a,b\}\in E_1$ if and only $\{f(a),f(b)\}\in E_2$.
+    \end{enumerate}
+    When such a function exists, $G_1$ and $G_2$ are called isomorphic graphs.
+\end{mydef}
 
-\textcolor{blue}{Definition}: $u=u_0, e_1, u_1, e_2, u_2, \ldots, e_{n-1},u_{n-1}$
 
-trail: no repetition of edges?
-path: is trail, no repetition of vertices
-circuit: no repetition of edges?
-cycle: is path starts and end with the same vertex.
+\section{Vertex Degree: Euler Trails and Circuits}
+\begin{mydef}
+    Let $G$ be an undirected graph or multigraph. For each vertex $v$ of $G$, the degree of $v$, written $deg(v)$, is the number of edges in $G$ that are incident with $v$. Here a loop at a vertex $v$ is considered as two incident edges for $v$.
+\end{mydef}
+\bigskip
+\begin{theorem}
+    If $G=(V,E)$ is an undirected graph or multigraph, then $\sum_{v\in V}{deg(v)}=2|E|$.
+    \begin{proof} An edge $e=\{a,b\}$ contributes a count of $1$ to each of $deg(a),deg(b)$, and consequently a count of $2$ to $\sum_{v\in V}{deg(v)}$.
+    \end{proof}
+\end{theorem}
+\bigskip
+\begin{corollary}
+For any undirected graph of multigraph, the number of vertices of odd degree must be even.
+\end{corollary}
+\bigskip
+\begin{mydef}
+    Let $G=(V,E)$ be an undirected graph of multigraph with no isolated vertices. Then $G$ is said to have an \textit{Euler circuit} if there is a circuit in $G$ that traverses every edge of the graph exactly once. If there is an open trail from $a$ to $b$ in $G$  and this trail traverses each edge in $G$ exactly once, the trail is called an \textit{Euler trail}.
+\end{mydef}
+\begin{equation*}
+    \begin{CD}
+    u-v\text{ walk} @>\text{no repeated edges}>> u-v\text{ trail} @>{\text{no repeated vertices}}>> u-v\text{ path} \\
+    @. @Vu=vVV @Vu=vVV \\
+    @. \text{circuit} @. \text{cycle}\\
+    @. @V\text{traverses every edge}VV @. \\
+    @. \text{Euler circuit} @.
+    \end{CD}
+\end{equation*}
+\bigskip
+\begin{theorem}
+    Let $G=(V,E)$ be an undirected graph or multigraph with no isolated vertices. Then $G$ has an Euler circuit if and only if $G$ is connected and every vertex in $G$ has even degree.
+\end{theorem}
+\begin{proof} Must prove $\Rightarrow$ and $\Leftarrow$
+    \begin{enumerate}
+        \item $\Rightarrow$:
+            \begin{enumerate}
+                \item If $G$ has an Euler circuit, then $ \forall a,b\in V, \exists$ a trail from $a$ to $b$; that is, that part of the circuit that starts at $a$ and terminates at $b$. Therefore, it follows from Theorem \ref{11.1} that $G$ is connected.
+                \item Let $s$ be the starting vertex of the Euler circuit. For any other vertex $v$ of $G$, each time the circuit comes to $v$ it then departs from the vertex.
+            \end{enumerate}
+        \item $\Leftarrow$ By induction.\\
+            Let $G$ be connected with every vertex of even degree.
+            \begin{enumerate}
+                \item Base: the number of edges in $G$ is $1$ or $2$.
+                \item IH: Assume the result true for all situations where there are $<n$ edges.
+                \item IS: Must prove the result is true for $n$ edges.
+                \item Proof.
+            \end{enumerate}
+    \end{enumerate}
+\end{proof}
+\bigskip
+\begin{corollary}
+    If $G$ is an undirected graph or multigraph with no isolated vertices, then we can construct an Euler trail in $G$ if and only if $G$ is connected and has exactly two vertices of odd degree.
+\end{corollary}
+\bigskip
+\begin{mydef}
+    Let $G=(V,E)$ be a directed graph or multigraph. For each $v\in V$,
+    \begin{enumerate}[label=\alph*)]
+        \item The \textit{incoming}, or \textit{in}, degree of $v$ is the number of edges in $G$ that are incident into $v$, and this is denoted by $id(v)$.
+        \item The \textit{outgoing}, or \textit{out}, degree of $v$ is the number of edges in $G$ that are incident from $v$, and this is denoted by $od(v)$.
+        \item For the case where the directed graph or multigraph contains one or more loops, each loop at a given vertex $v$ contributes a count of $1$ to each of $id(v)$ and $od(v)$.
+    \end{enumerate}
+\end{mydef}
+\bigskip
+\begin{theorem}
+    Let $G=(V,E)$ be a directed graph or multigraph with no isolated vertices. The graph $G$ has a directed Euler circuit if and only if $G$ is connected and $id(v)=od(v)$ for all $v\in V$.
+\end{theorem}
 
-\textcolor{blue}{Definition}: Graph $G=(V,E)$ is called connected if there is a path between any two distinct vertices of $G$. A graph is not connected is called disconnected.
+\section{Planar Graphs}
+\begin{mydef}
+    A graph (or multigraph) $G$ is called \textit{planar} if $G$ can be drawn in the plane with its edges intersecting only at vertices of $G$. Such a drawing of $G$ is called an \textit{embedding} of $G$ in the plane.
+\end{mydef}
+\bigskip
+\begin{mydef}
+    A graph $G=(V,E)$ is called \textit{bipartite} if $V=V_1\cup V_2$ with $V_1\cap V_2=\emptyset$, and every edge of $G$ is of the form $\{a,b\}$ with $a\in V_1$ and $b\in V_2$. If each vertex in $V_1$ is joined with every vertex in $V_2$, we have a complete bipartite graph. In this case, if $|V_1|=m,|V_2|=n$, the graph is denoted by $K_{m,n}$.
+\end{mydef}
+\bigskip
+\begin{mydef}
+    Let $G=(V,E)$ be a loop-free undirected graph, where $E\neq \emptyset$. An elementary subdivision of $G$ results when an edge $e=\{u,w\}$ is removed from $G$ and then the edges $\{u,v\},\{v,w\}$ are added to $G-e$, where $v\notin V$.\\
+    The loop-free undirected graph $G_1=(V_1,E_1)$ and $G_2=(V_2,E_2)$ are called homeomorphic if they are isomorphic or if they can both be obtained from the same loop-free undirected graph $H$ by a sequence of elementary subdivisions.
+\end{mydef}
+\bigskip
+\begin{theorem}(Kuratowski's Theorem)
+    A graph is nonplanar if and only if it contains a subgraph that is homeomorphic to either $K_5$ or $K_{3,3}$.
+\end{theorem}
+\bigskip
+\begin{theorem} (\textcolor{red}{Euler's Theorem})
+    Let $G=(V,E)$ be a connected planar graph or multigraph with $|V|=$ and $|E|=e$. Let $r$ be the number of regions in the plane determined by a planar embedding (or, depiction) of $G$; one of the regions has infinite area and is called the infinite region. Then $v-e+r=2$.
+\end{theorem}
+\begin{proof} By induction on $e$.
+    \begin{enumerate}
+        \item Base: $e=0,e=1$\\
+        \includegraphics[scale=0.5]{"Figure11-56"}
+        \item IH: Let $k\in \mathbb{N}$ and assume that the result is true for every connected planar graph or multigraph with $e$ edges, where $0\leq e\leq k$.
+        \item IS: Must prove that the statement is true for $k+1$ edges.
+        \item Proof: Let $G=(V,E)$ be a connected planar graph or multigraph with $v$ vertices, $r$ regions and $e=k+1$ edges. Let $a,b\in V, \{a,b\}\in E$. Consider a graph $H=G-\{a,b\}$,\\
+        \includegraphics[scale=0.5]{"Figure11-57"}
+        \begin{enumerate}
+            \item $H$ is still connected. As in parts (a),(b),(c),(d) of Figure 11.57. In all of these situations, $H$ has $v$ vertices, $k$ edges, and $r-1$ regions because one of the regions for $H$ is split into two regions for $G$. By IH, the graph $H$ has $k$ edges $\Rightarrow v-k+(r-1)=2\Rightarrow v-(k+1)+r=2\Rightarrow v-e+r=2$.
+            \item $H$ is disconnected. As in parts (e),(f) of Figure 11.57. $H$ has $v$ vertices, $k$ edges, and $r$ regions. Also $H$ has two components $H_1$ and $H_2$, where $H_i$ has $v_i$ vertices, $e_i$ edges, and $r_i$ regions, for $i=1,2$. Furthermore, $v_1+v_2=v,e_1+e_2=k=e-1$, and $r_1+r_2=r+1$ because each of $H_1$ and $H_2$ determines an infinite region. By IH,
+            \begin{equation*}
+                v_1-e_1+r_1=2\text{ and }v_2-e_2+r_2=2\Rightarrow v_1-e_1+r_1+v_2-e_2+r_2=4\Rightarrow v-e+r=2
+            \end{equation*}
+        \end{enumerate}
+    \end{enumerate}
+\end{proof}
+\bigskip
+\begin{corollary}
+    Let $G=(V,E)$ be a loop-free connected planar graph with $|V|=v,|E|=e>2$, and $r$ regions. Then $3r\leq 2e$ and $e\leq 3v-6$. (It implies that if $e>3v-6\Rightarrow G$ is not planar.)
+\end{corollary}
+\begin{proof}
+    Since $G$ is loop-free and is not multigraph, and $|E|>2$, the boundary of each region (including the infinite region) contains at least three edges --- hence, each region has degree $\geq 3$. Consequently, $2e=2|E|=$ the sum of the degrees of the $r$ regions determined by $G$ and $2e\geq 3r$. From Euler's Theorem, $2=v-e+r\leq v-e+(2/3)e=v-(1/3)e\Rightarrow e\leq 3v-6$.\\
+\end{proof}
+\bigskip
+\begin{mydef}
+    
+\end{mydef}
+\section{Hamilton Paths and Cycles}
+\begin{mydef}
+    If $G=(V,E)$ is a graph or multigraph with $|V|\geq 3$, we say that $G$ has a \textit{Hamilton cycle} if there is a cycle in $G$ that contains every vertex in $V$. A \textit{Hamilton path} is a path (and not a cycle) in $G$ that contains each vertex.
+\end{mydef}
+\subsection*{Example}
+    \begin{enumerate}
+        \item For all $n\geq 2, Q_n$ has a Hamilton cycle.
+        \item For $m=n, K_{m,n}$ has a Hamilton cycle.
+        \item Prove $Q_n$ has a Hamilton cycle.
+            \begin{proof} By Induction.\\
+                \begin{enumerate}
+                    \item Base: $n=2, Q_2$ is a square, true.
+                    \item IH: Assume $Q_k$ has an Hamilton cycle, $2\leq k\leq n-1$.
+                    \item IS: Must prove $Q_n$ has an Hamilton cycle.
+                    \item Proof: $\{x_i,y_i\}\in E_{Q_{n-1}}, \{x_i',y_i'\}\in {E_{Q_{n-1}}'}$. If the Hamilton cycle in $Q_{n-1}$ is $x_i\rightarrow\cdots\rightarrow y_i\rightarrow x_i\Rightarrow$ the Hamilton cycle in $Q_n$ is $x_i\rightarrow \cdots\rightarrow y_i\rightarrow y_i'\rightarrow \cdots\rightarrow x_i'\rightarrow x_i$.
+                \end{enumerate}
+            \end{proof}
+    \end{enumerate}
 
-\textcolor{blue}{Definition}: 
-\textcolor{blue}{Definition}: Let $V$ be a set of $n$ vertices. The complete graph on $V$ denoted $K_n$, is a loop-free undirected graph where all $a,b\in V, a\neq b$, there is edge $\{a,b\}$.
-
-
-\section*{11.2 Subgraphs, Complements, and Graph Isomorphism}
-\textcolor{blue}{Definition}: Let $G$ be a loop-free (undirecte) graph on $n$ vertices. The complement of $G$, denoted $\bar G$, is the subgraph of $K_n$ consisting of the $n$ vertices in $G$ and all edges that are not in $G$. Any complement graph of complete graph is null graph.
-
-
-\textcolor{blue}{Definition}: Let $G_1=(V_1,E_1)$ and $G_2=(V_2,E_2)$ be two undirected graphs. A function $f:V_1\rightarrow V_2$ is called a graph isomorphism
-
-\begin{center}
-    \begin{tikzpicture}
-        \GraphInit[vstyle=Normal]
-        \SetGraphUnit{2}
-        \begin{scope}[rotate=-135]
-            \Vertices{circle}{A,B,C,E}
-        \end{scope}
-        \NOEA[unit=1.414](E){D}
-        \Edges(A,B,E,D,C,E,A,C,B)
-    \end{tikzpicture}
-\end{center}
-
-\section*{11.3 Vertex Degree: Euler Trails and Circuits}
-\section*{11.4 Planar Graphs}
-\section*{11.5 Hamilton Paths and Cycles}
-\section*{11.6 Graph Coloring and Chromatic Polynomials}
-\section*{11.7 Summary and Historical Review}
+\bigskip
+\begin{theorem}
+    Let $K_n^*$ be a complete directed graph --- that is, $K_n^*$ has $n$ vertices and for each distinct pair $x,y$ of vertices, exactly one of the edges $(x,y)$ or $(y,x)$ is in $K_n^*$. Such a graph (called a \textit{tournament}) always contains a directed Hamilton path.
+\end{theorem}
+\begin{proof} By contradiction.\\
+Let $m\geq2$ with $p_m$ a path containing the $m-1$ edges $(v_1,v_2),(v_2,v_3),\ldots, (v_{m-1}, v_m)$. 
+    \begin{enumerate}
+        \item If $m=n$, we're finished.
+        \item If not, let $v$ be a vertex that doesn't appear in $p_m$.
+            \begin{enumerate}
+                \item If $(v,v_1)$ is an edge in $K_n^*$, we can extend $p_m$ by adjoining this edge. 
+                \item If not, then $(v_1,v)$ must be an edge.
+                    \begin{enumerate}
+                        \item If $(v,v_2)$ is an edge in $K_n^*$, we can extend $p_m$ to $(v_1,v),(v,v_2),(v_2,v_3),\ldots, (v_{m-1},v_m)$
+                        \item If not, then $(v_2,v)$ must be an edge.
+                        \item $\cdots$
+                    \end{enumerate}
+                \item Continue this process there are only two possibilities:
+                    \begin{enumerate}
+                        \item For some $1\leq k\leq m-1$ the edges $(v_k,v),(v,v_{k+1})$ are in $K_n^*$ and we replace $(v_k,v_{k+1})$ with this pair of edges; or
+                        \item $(v_m,v)$ is in $K_n^*$ and we add this edge to $p_m$.
+                    \end{enumerate}
+                \item Either case results in a path $p_{m+1}$ that includes $m+1$ vertices and has $m$ edges.
+            \end{enumerate}
+    \end{enumerate}
+\end{proof}
+\bigskip
+\begin{theorem}
+        Let $G=(V,E)$ be a loop-free graph with $|V|=n\geq 2$. If $deg(x)+deg(y)\geq n-1$ for all $x,y\in V, x\neq y$, then $G$ has a Hamilton path.
+\end{theorem}
+\bigskip
+\begin{corollary}
+    Let $G=(V,E)$ be a loop-free graph with $n(\geq 2)$ vertices. If $deg(v)\geq (n-1)/2$ for all $v\in V$, then $G$ has a Hamilton path.
+\end{corollary}
+\bigskip
+\begin{theorem} (Ore's theorem)
+    Let $G=(V,E)$ be a loop-free undirected graph with $|V|=n\geq3$. If $deg(x)+deg(y)\geq n$ for all nonadjacent $x,y\in V$, then $G$ contains a Hamilton cycle.
+\end{theorem}
+\begin{proof} By contradiction.\\
+    Assume that $G$ does not contain a Hamilton cycle. We add edges to $G$ until we arrive at a subgraph $H$ of $K_n$, where $H$ has no Hamilton cycle, but, for any edge $e$ (of $K_n$) not in $H, H+e$ does have a Hamilton cycle.\\
+    Since $H\neq K_n$, there are vertices $a,b\in V$, where $\{a,b\}$ is not an edge of $H$ but $H+\{a,b\}$ has a Hamilton cycle $C$. The graph $H$ has no such cycle, so the edge $\{a,b\}$ is a part of cycle $C$. Let us list the vertices of $H$ (and $G$) on cycle $C$ as follows:
+    \begin{equation*}
+        \mynode{tohere}{}a(=v_1)\rightarrow b(=v_2)\rightarrow v_3\rightarrow v_4\rightarrow\cdots\rightarrow v_{i-1}\rightarrow v_i\rightarrow v_{i+1}\cdots\rightarrow v_{n-1}\rightarrow {v_n}\mynode{fromhere}{}
+        \begin{tikzpicture}[remember picture, overlay]
+            \draw[-Stealth] (fromhere) to [out=-20,in=-160] (tohere);
+        \end{tikzpicture}
+    \end{equation*}\vspace{10pt}\\
+    For each $3\leq i\leq n$, if the edge $\{b,v_i\}$ is in the graph $H$, then the edge $\{a,v_{i-1}\}$ cannot be an edge of $H$. For if both of these edges are in $H$, for some $3\leq i\leq n$, then we get the Hamilton cycle for the graph $H$ (which has no Hamilton cycle).
+    \begin{equation*}
+        b\rightarrow v_i\rightarrow v_{i+1}\rightarrow\cdots\rightarrow v_n\rightarrow a\rightarrow v_{i-1}\rightarrow v_{i-2}\rightarrow v_4\rightarrow v_3\rightarrow b
+    \end{equation*}
+    \begin{equation*}
+        \mynode{toherec}{}a(=\mynode{fromherea}{}v_1)\rightarrow b(=\mynode{fromhereb}{}v_2)\rightarrow v_3\rightarrow v_4\rightarrow\cdots\rightarrow v_{\mynode{toherea}{}i-1}\rightarrow \overset{\mynode{tohereb}{}}{v_{i}}\rightarrow v_{i+1}\cdots\rightarrow v_{n-1}\rightarrow {v_n}\mynode{fromherec}{}
+        \begin{tikzpicture}[remember picture, overlay]
+            \draw[-Stealth] (fromherec) to [out=-20,in=-160] (toherec);
+            \draw[-Stealth] (fromherea)++(0,-0.1) to [out=-20,in=-160](toherea);
+            \draw[-Stealth] (fromhereb)++(0,0.2) to [out=20,in=160](tohereb);
+        \end{tikzpicture}
+    \end{equation*}\vspace{10pt}\\
+    Therefore, for each $3\leq i\leq n$, at most one of the edge $\{b,v_i\},\{a,v_{i-1}\}$ is in $H$.\\
+    If $dge_H(b)=i$, assume $b$ is connected to $v_3,v_4,\ldots, v_{i+2}\Rightarrow a$ is not connected to $v_2,v_3,\cdots, v_{i+1}\Rightarrow a$ is connected to some vertices $v_{i+2},\ldots, v_n\Rightarrow deg_H(a)\leq n-(i+1)\Rightarrow deg_H(a)+deg_H(b)\leq n-(i+1)+i=n-1<n$.\\
+    $G\subseteq H\Rightarrow \forall v\in V, deg_G(v)\leq deg_H(v)\Rightarrow deg_G(a)+deg_G(b)<n\leadsto$ Contradiction.
+\end{proof}
+\bigskip
+\begin{corollary}
+    If $G=(V,E)$ is a loop-free undirected graph with $|V|=n\geq 3$, and if $dge(v)\geq n/2$ for all $v\in V$, then $G$ has a Hamilton cycle.
+\end{corollary}
+\bigskip
+\begin{corollary}
+    If $G=(V,E)$ is a loop-free undirected graph with $|V|=n\geq 3$, and if $|E|\geq \binom{n-1}{2}+2$, then $G$ has a Hamilton cycle.
+\end{corollary}
+\begin{proof}
+    Let $a,b\in V$, where $\{a,b\}\notin E$. Since $a,b$ are nonadjacent, we want to show that $deg(a)+deg(b)\geq n$. Remove the following from the graph $G$:
+    \begin{enumerate}[label=i)]
+        \item all edges of the form $\{a,x\}$, where $x\in V$;
+        \item all edges of the form $\{y,b\}$, where $y\in V$;
+        \item the vertices $a$ and $b$.
+    \end{enumerate}
+    Let $H=(V',E')$ denote the resulting subgraph. Then $|E|=|E'|+dge(a)+deg(b)$ because $\{a,b\}\notin E$.\\
+    Since $|V'|=n-2, H$ is a subgraph of the complete graph $K_{n-2}$, so $|E'|\leq \binom{n-2}{2}$.
+    \begin{equation*}
+        \binom{n-1}{2}+2\leq |E|=|E'|+deg(a)+deg(b)\leq \binom{n-2}{2}+deg(a)+deg(b)
+    \end{equation*}
+    \begin{align*}
+        deg(a)+deg(b)&\geq \binom{n-1}{2}+2-\binom{n-2}{2}\\
+        &=\frac{1}{2}(n-1)(n-2)+2-\frac{1}{2}(n-2)(n-3)\\
+        &=n
+    \end{align*}
+    The condition of Ore's Theorem is satisfied $\Rightarrow G$ has a Hamilton cycle.
+\end{proof}
+\section{Graph Coloring and Chromatic Polynomials}
+\begin{mydef}
+    If $G=(V,E)$ is an undirected graph, a proper coloring of $G$ occurs when we color the vertices of $G$ is that if $\{a,b\}$ is an edge in $G$, then $a$ and $b$ are colored with different colors. (Hence adjacent vertices have different colors.) The minimum number of colors needed to properly color $G$ is called the \textit{chromatic number} of $G$ and is written $\chi(G)$.
+\end{mydef}
+\subsection*{Examples}
+    \begin{enumerate}
+        \item $\chi(Q_2)=2$
+        \item $\chi(C_{2n})=2, \chi(C_{2n+1})=3$
+        \item $\chi(K_{n})=n$
+        \item $\chi(K_{m,n})=2$
+            \begin{proof}
+                \begin{enumerate}
+                    \item Present $K_{m,n}$ with $2$ colors $\Rightarrow \chi(K_{m,n})\leq2$.
+                    \item $\chi(K_{m,n})\geq2$ for any $G$ with at least one edge.
+                    \item $\chi(K_{m,n})=2$.
+                \end{enumerate}
+            \end{proof}
+    \end{enumerate}
+\begin{theorem*}
+    Let $G=(V,E)$ be a simple (loop-free, non-multi) connected graph. Let $\Delta=\max(deg(v))$ (max degree of $G$), then $\chi(G)\leq \Delta+1$.
+\end{theorem*}
+\begin{proof}
+    Consider any vertex $u$, color $u$ and all its $k$ adjacent vertices by different colors. Since $k\leq \Delta, \Delta+1$ colors are enough.\\
+    Continue the same process, pick a vertex $x$ not colored, then consider all its adjacent vertices $x_1,\ldots, x_m$. Assume that $x_1,\ldots, x_p$ are colored, but $x_{p+1},\ldots, x_m$ are not colored. Then color $x_{p+1},\ldots, x_m$ with colors not used in coloring $x_1,\ldots, x_p$, we need $p+(m-p)+1=m+1\leq \Delta+1$, since $m\leq \Delta$.
+\end{proof}
+\section{Summary and Historical Review}
 
 \end{document}

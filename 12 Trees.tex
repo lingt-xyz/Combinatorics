@@ -1,0 +1,150 @@
+\documentclass[letter]{book}
+
+\usepackage{fullpage} % Package to use full page
+\usepackage{parskip} % Package to tweak paragraph skipping
+\usepackage{tikz} % Package for drawing
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amscd}
+
+%https://en.wikibooks.org/wiki/LaTeX/Theorems
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem*{mydef*}{Definition}
+\newtheorem{mydef}{Definition}[chapter]
+\newtheorem*{ex}{Example}
+
+\newtheorem{prop}{Proposition}[chapter]
+\theoremstyle{remark}
+\newtheorem*{rem}{Remark}
+
+\usepackage{enumitem}
+
+\usepackage{tkz-graph}
+\usepackage{float}
+
+\usepackage{hyperref}
+
+\usepackage{MnSymbol}
+
+%https://tex.stackexchange.com/questions/229355/algorithm-algorithmic-algorithmicx-algorithm2e-algpseudocode-confused
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+
+\usepackage{graphicx}
+\graphicspath{ {./resources/} }
+
+%https://tex.stackexchange.com/questions/165021/fixing-the-location-of-the-appearance-in-algorithmicx-environment
+\usepackage{float}% http://ctan.org/pkg/float
+
+%https://tex.stackexchange.com/questions/25369/how-to-rotate-a-table
+\usepackage[graphicx]{realboxes}
+
+\begin{document}
+
+\setcounter{chapter}{11}
+\chapter{Trees}
+\section{Definitions, Properties, and Examples}
+\begin{mydef}
+    Let $G=(V,E)$ be a loop-free undirected graph. The graph $G$ is called a tree if $G$ is connected and contains no cycles. A graph which has no loops, no cycles is called a forest.
+\end{mydef}
+\bigskip
+\begin{mydef*}
+    Spanning tree: for a connected graph $G$ is a connected subgraph (which is a tree) that contains all the vertices of $G$.
+\end{mydef*}
+\bigskip
+\begin{mydef*}
+    Spanning forest:
+\end{mydef*}
+\bigskip
+\begin{theorem}
+    If $a,b$ are distinct vertices in a tree $T=(V,E)$, then there is a unique path that connects these vertices.
+    \begin{proof}
+        By contradiction.\\
+        Assume there are several paths from $a$ to $b$ in $T$.\\
+        \begin{tikzpicture}[auto]
+            \begin{scope}[every node/.style={circle,draw=black,minimum size=5mm}]
+                \node (A) at (-5,0) {a};
+                \node (B) at (-4,0) {};
+                \node (C) at (-3,1) {$x_i$};
+                \node (D) at (3,1) {$x_{k-1}$};
+                \node (E) at (5,0) {$x_k,y_j$};
+                \node (G) at (-3,-1) {$y_i$};
+                \node (H) at (3,-1) {$y_{j-1}$};
+                \node (K) at (7,0) {b};
+            \end{scope}
+            \begin{scope}[every edge/.style={draw=black}]
+                \draw (A) edge node{} (B);
+                \draw (B) edge node{} (C);
+                \draw (B) edge node{} (G);
+                \draw (C) edge[dashed] node{} (D);
+                \draw (G) edge[dashed] node{} (H);
+                \draw (D) edge node{} (E);
+                \draw (H) edge node{} (E);
+                \draw (E) edge node{} (K);
+            \end{scope}
+        \end{tikzpicture}
+        \\
+        Consider two of such paths: $a,x_1,x_2,\dots, x_r, b$ and $a, y_1,y_2,\ldots, y_s, b$. Find the smallest $i$ such that $x_i\neq y_i$, and smallest $j, j>i$ such that $y_j=x_k$. If not, the 2 paths must meet at $b$. In both cases $x_{i-1}x_i\cdots x_k (\text{or } b)y_{j-1}\cdots y_ix_{i-1}$ is a cycle.\\
+        Or if $x_i\neq y_i$, then $x_1\cdots x_k (\text{or } b)y_{j-1}\cdots y_1$ is a cycle.\\
+        Contradiction, since $T$ does not contain cycles.
+    \end{proof}
+\end{theorem}
+\bigskip
+\begin{theorem}
+    If $G=(V,E)$ is an undirected graph, then $G$ is connected if and only if $G$ has a spanning tree (as a subgraph).
+    \begin{proof}
+        Should prove $\Leftarrow$ and $\Rightarrow$\\
+        $\Leftarrow$ Assume $G$ has a spanning tree tree. By the previous result, we know there is a unique path between pair of vertices $a,b$ in the spanning tree. Then, by definition, $G$ is connected.\\
+        $\Rightarrow$Assume $G$ is connected, we construct a subgraph $T$ of $G$ which contains all vertices of $G$, is connected, and contains no loops and cycles. First, remove all loops from $G$ to get $G_1$. If $G_1$ is not a tree, then it contains cycles. Find a cycle, remove an arbitrary edge from it to form $G_2$. Continue this process until no cycles remain in the resulting graph $G_t$. $G_t$ is a tree, and a spanning tree.
+    \end{proof}
+\end{theorem}
+\bigskip
+\begin{theorem}
+    In every tree $T=(V,E), |V|=|E|+1$.
+    \begin{proof}By induction on $|E|$.\\
+        \begin{enumerate}
+            \item Base: $|E|=0, |V|=1; |E|=1,|V|=2;|E|=2,|V|=3$.
+            \item IH: Assume that in any tree with $|E|\leq k, |V|=|E|+1$.
+            \item IS: Must prove that in any tree with $|E|=k+1,|V|=|E|+1$.
+            \item Proof:Consider a tree $T$ with $|E|=k+1$. Choose an arbitrary edge $\{x,y\}$ and delete it. The resulting graph is a forest of exactly two trees $T_1=(V_1,E_1),T_2=(V_2,E_2),V_1\cup V_2=V,E_1\cup E_2=E\backslash\{x,y\}$. (If no, then there was another path between $x$ and $y$, which would create a cycle with $\{x,y\}$, which is impossible.) Alos, $|E_1|\leq k, |E_2|\leq k$. Then, IH applies to both trees $T_1,T_2\Rightarrow |V_1|=|E_1|+1,|V_2|=|E_2|+1$. $|V_1|+|V_2|=|V|=|E_1|+|E_2|+2=|E|-1+2=|E|+1$.
+        \end{enumerate}
+    \end{proof}
+\end{theorem}
+\bigskip
+\begin{theorem}
+    For every tree $T=(V,E)$, if $|V|\geq2$, then $T$ has at least two pendant vertices (degree is $1$).
+    \begin{proof} By contradiction.\\
+        Let $|V|=n\geq2$. Since $|E|=|V|-1=n-1$, then $2(n-1)=\sum_{v\in V}{deg(v)}$.\\
+        Assume $T$ has $<2$ vertices of degree $1$. There are two cases:
+        \begin{enumerate}
+            \item $1$ vertex of degree $1$: other vertices have degree $\geq 2\Rightarrow \sum_{v\in V}{deg(v)}\geq 1+2(n-1)=2n-1$.
+            \item no vertex of degree $1$
+        \end{enumerate}
+    \end{proof}
+\end{theorem}
+\bigskip
+\begin{theorem}
+    The following statements are equivalent for a loop-free undirected graph $G=(V,E)$.
+    \begin{enumerate}[label=\alph*)]
+        \item $G$ is a tree.
+        \item $G$ is connected, but the removal of any edge from $G$ disconnected into two subgraphs that are trees.
+        \item $G$ contains no cycles, and $|V|=|E|+1$.
+        \item $G$ is connected, and $|V|=|E|+1$.
+        \item $G$ contains no cycles, and if $a,b\in V$ with $\{a,b\}\notin E$, then the graph obtained by adding edge $\{a,b\}$ to $G$ has precisely one cycle.
+    \end{enumerate}
+\end{theorem}
+
+\section{Rooted Trees}
+\begin{mydef}
+    If $G$ is a directed graph, the $G$ is called a directed tree if the undirected graph associated with $G$ is a tree. When $G$ is a directed tree, $G$ is called 
+\end{mydef}
+\end{document}
