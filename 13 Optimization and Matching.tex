@@ -1,0 +1,84 @@
+\documentclass[letter]{book}
+
+\usepackage{fullpage} % Package to use full page
+\usepackage{parskip} % Package to tweak paragraph skipping
+\usepackage{tikz} % Package for drawing
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amscd}
+
+%https://en.wikibooks.org/wiki/LaTeX/Theorems
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem*{mydef*}{Definition}
+\newtheorem{mydef}{Definition}[chapter]
+\newtheorem*{ex}{Example}
+
+\newtheorem{prop}{Proposition}[chapter]
+\theoremstyle{remark}
+\newtheorem*{rem}{Remark}
+
+\usepackage{enumitem}
+
+\usepackage{tkz-graph}
+\usepackage{float}
+
+\usepackage{hyperref}
+
+\usepackage{MnSymbol}
+
+%https://tex.stackexchange.com/questions/229355/algorithm-algorithmic-algorithmicx-algorithm2e-algpseudocode-confused
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+
+\usepackage{graphicx}
+\graphicspath{ {./resources/} }
+
+%https://tex.stackexchange.com/questions/165021/fixing-the-location-of-the-appearance-in-algorithmicx-environment
+\usepackage{float}% http://ctan.org/pkg/float
+
+%https://tex.stackexchange.com/questions/25369/how-to-rotate-a-table
+\usepackage[graphicx]{realboxes}
+
+\begin{document}
+
+\setcounter{chapter}{12}
+\chapter{Optimization and Matching}
+
+\setcounter{section}{3}
+\section{Matching Theory}
+\setcounter{mydef}{8}
+\begin{mydef}
+    Let $G=(V,E)$ be a bipartite graph with $V$ partitioned as $X\cup Y$. (Each edge of $E$ has the form $\{x,y\}$ with $x\in X$ and $y\in Y$.)
+        \begin{enumerate}
+            \item A \textit{matching} in $G$ is a subset of $E$ such that no two edges share a common vertex in $X$ or $Y$.
+            \item A \textit{complete} matching of $X$ into $Y$ is a matching in $G$ such that every $x\in X$ is the endpoint of an edge.
+        \end{enumerate}
+\end{mydef}
+\setcounter{theorem}{6}
+\bigskip
+\begin{theorem}
+    Let $G=(V,E)$ be bipartite with $V$ partitioned as $X\cup Y$. A complete matching of $X$ into $Y$ exists if and only if for every subset $A$ of $X, |A|\leq |R(A)|$, where $R(A)$ is the subset of $Y$ consisting of those vertices each of which is adjacent to at least one vertex in $A$.
+\end{theorem}
+\bigskip
+\begin{mydef}
+    If $G=(V,E)$ is a bipartite graph with $V$ partitioned as $X\cup Y$, a \textit{maximal matching} in $G$ is one that matches as many vertices in $X$ as possible with the vertices in $Y$.
+\end{mydef}
+\bigskip
+\begin{mydef}
+    Let $G=(V,E)$ be a bipartite graph, where $V$ is partitioned as $X\cup Y$. If $A\subseteq X$, then $\delta(A)=|A|-|R(A)$ is called the deficiency of $A$. The deficiency of graph $G$, denoted $\delta(G)$, is given by $\delta(G)=\max\{\delta(A)|A\subseteq X\}$.\\
+    For $\emptyset\subseteq X$, we have $R(\emptyset)=\emptyset$, so $\delta(\emptyset)=0$ and $\delta(G)\geq0$. If $\delta(G)>0$, there is a subset $A$ of $X$ with $|A|-|R(A)|>0$, so $|A|>|R(A)|$ and from Theorem 13.7 we know that there is no complete matching of $X$ into $Y$.
+\end{mydef}
+\bigskip
+\begin{theorem}
+    Let $G=(V,E)$ be bipartite with $V$ partitioned as $X\cup Y$. The maximum number of vertices in $X$ that can be matched with those in $Y$ is $|X|-\delta(G)$.
+\end{theorem}
+\end{document}

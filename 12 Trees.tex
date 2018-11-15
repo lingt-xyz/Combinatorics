@@ -136,13 +136,38 @@
     The following statements are equivalent for a loop-free undirected graph $G=(V,E)$.
     \begin{enumerate}[label=\alph*)]
         \item $G$ is a tree.
-        \item $G$ is connected, but the removal of any edge from $G$ disconnected into two subgraphs that are trees.
+        \item $G$ is connected, but the removal of any edge from $G$ disconnects $G$ into two subgraphs that are trees.
         \item $G$ contains no cycles, and $|V|=|E|+1$.
         \item $G$ is connected, and $|V|=|E|+1$.
         \item $G$ contains no cycles, and if $a,b\in V$ with $\{a,b\}\notin E$, then the graph obtained by adding edge $\{a,b\}$ to $G$ has precisely one cycle.
+        \item $\exists$ a unique path between any pair of vertices of $G$.
     \end{enumerate}
 \end{theorem}
-
+\begin{proof}
+    Should prove: $a)\Rightarrow b)\Rightarrow c)\Rightarrow d)\Rightarrow e)\textcolor{red}{\Rightarrow a)}$
+    \begin{enumerate}
+        \item a) $\Rightarrow$ b) By contradiction.\\
+            If $G$ is a tree then $G$ is connected. Let $e=\{a,b\}\in E$ be any edge of $G$.\\
+            Assume $G-e$ is connected $\Rightarrow\exists$ at least two paths in $G$ from $a$ to $b$, contradiction. Then $G-e$ is disconnected and partition into two subsets.
+            \begin{enumerate}
+                \item vertex $a$, and all vertices of $G-e$ can be reached from $a$.
+                \item vertex $b$, and all vertices of $G-e$ can be reached from $b$.
+            \end{enumerate}
+            Both components are trees (if no, a cycle in either component would also be in $G$).\\
+            $\nexists$ a third class of vertices: vertices are not reachable from $a$ and not reachable form $b$ since $G$ is connected.
+        \item b) $\Rightarrow$ c) By contradiction.\\
+            Assume $G$ contains a cycle, let $e=\{a,b\}$ be an edge of the cycle. Remove $e$, then $G-e$ is still connected, contradiction, since from b) removal of $e$ should disconnected $G$. Thus, $G$ does not contain cycles, and $G$ is a tree, then $|V|=|E|+1$.
+        \item c) $\Rightarrow$ d) By contradiction.\\
+            Assume $G$ is not connected, let $G_1,G_2,\ldots, G_r$ be the connected components of $G$; that is, $G$ is a forest of $r$ trees. Select a vertex $v_i\in V_{G_i},i=1,2,\ldots, r$ and add the $r-1$ edges: $\{v_1,v_2\},\{v_2,v_3\},\ldots, \{v_{r-1},v_r\}$ to $G$ form a graph $G'=(V,E')$, which is a tree, because edges $\{v_1,v_2\},\{v_2,v_3\},\ldots, \{v_{r-1},v_r\}$ do not create cycles. Clearly, $|E'|=|E|+r-1$. Since $G'$ is a tree, then $|V|=|E'|+1$, but $|V|=|E|+1\Rightarrow |E|=|E'|=|E|+r-1\Rightarrow r-1=0\Rightarrow r=1\Rightarrow G$ is connected.
+        \item d) $\Rightarrow$ e)
+            \begin{enumerate}
+                \item $G$ contains no cycle: If $G$ contains a cycle, then find a cycle in $G$ and remove one of its edges. Continue this process until get a graph $G'$ without cycles. $G'$ is a tree, assume we deleted $k$ edges from $G$ to obtain $G'=(V,E'),|E'|=|E|-k$. Since $G'$ is a tree, then $|V|=|E'|+1=|E|-k+1$. Also, from d) $|V|=|E|+1\Rightarrow |E|+1=|E|-k+1\Rightarrow = k\Rightarrow$ there was no cycle in $G$.
+                \item Precisely $1$ cycle. Add one edge $\{a,b\}$ to $G$. Assume $2$ or more cycles created in $G'=G+\{a,b\}$. Take one of the cycles, delete an edge. Take the second cycle, delete an edge, then we obtain a tree $G''=(V,E''), |E''|=|E|+2-1=|E|-1$. Since $G''$ is a tree, then $|V|=|E''|+1=(|E|-1)+1=|E|$, contradiction, because $|V|=|E|+1$.
+            \end{enumerate}
+        \item e) $\Rightarrow$ a) By contradiction.\\
+            Assume $G$ is not connected, that is, $G$ is a forest of $k$ trees of $G_i,i=1,2,\ldots, k$. Take $v_i\in V_{G_i}$, connect $\{v_1,v_2\}$ to create a graph $G'=(V,E'),E'=E\cup \{v_1,v_2\}$. By e), $G'$ must have precisely $1$ cycle, and $\{v_1,v_2\}$ is part of this cycle. Then, there was another path from $v_1$ to $v_2$ in $G$. Thus $G_1$ and $G_2$ are connected, contradiction. Therefore, $G$ is not a forest, and is a tree.
+    \end{enumerate}
+\end{proof}
 \section{Rooted Trees}
 \begin{mydef}
     If $G$ is a directed graph, the $G$ is called a directed tree if the undirected graph associated with $G$ is a tree. When $G$ is a directed tree, $G$ is called 
